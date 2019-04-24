@@ -18,7 +18,7 @@ class Novel extends Base {
     public function index() {
         Cookie::set('__forward__',$this->request->url());
         $id=$this->request->param('id');                    // novelID
-        $info=model('common/api')->novel_detail($id);
+        $info=model('common/api')->novel_detail($id);       // 小说详情页基本信息
         if(!$info){
             $error = model('common/api')->getError();
             $this->error(empty($error) ? '未找到该小说！' : $error,url('Home/Index/index'));
@@ -32,14 +32,14 @@ class Novel extends Base {
         }else{
             $tpl=$info['template'];
         }
-        model('common/api')->hits($id,'novel');
+        model('common/api')->hits($id,'novel');             // 推荐的小说
         $is_bookshelf=model('user/bookshelf')->check($info['id']);
         $this->assign('pos',1);
         $this->assign('type','novel');
         $this->assign($info);
-        $this->assign('reader_url',model('common/api')->novel_reader_url($info['id']));
+        $this->assign('reader_url',model('common/api')->novel_reader_url($info['id']));     // 开始阅读
         $this->assign('is_bookshelf',$is_bookshelf?$is_bookshelf:0);
-        $this->assign('add_bookshelf','onclick=add_bookshelf()');
+        $this->assign('add_bookshelf','onclick=add_bookshelf()');                           // 添加书架
         return $this->fetch($this->home_tplpath.$tpl);
     }
 

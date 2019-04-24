@@ -482,20 +482,26 @@ class Api extends Model
 				$data['tag_array']=explode(',', $data['tag']);                           // tag, 根据, 分割
 				$data["word_million"]=number_format($data["word"]/10000,2);     // 字数
 				$data["serialize_text"]=($data["serialize"]==1)?"已完结":"连载中";                // 连载完结
-				$data["author_url"]=url('home/search/index',['keyword'=>$data["author"]]);      // 作者 url
-				$chapter_data=Db::name('novel_chapter')->field('id,index,chapter_name,chapter_content, update')
-                    ->where(['novel_id'=>$data['id'],'status'=>1])->order('index','desc')->limit(1)->find(); // 章节
+				$data["author_url"]=url('home/search/index',['keyword'=>$data["author"]]);   // 作者 url
+				$chapter_data = Db::name('novel_chapter')->field('id,index,chapter_name,update')
+                    ->where(['novel_id'=>$data['id'],'status'=>1])->order('index','desc')->all(); // 章节
                 if($chapter_data){
-                    $allowUrl = ['home/novel/index'];
-                    $visit = strtolower(Request::module()."/".Request::controller()."/".Request::action());
-                    $data['source_id'] = $chapter_data['id'];
-                    $data['chapter_id'] = $chapter_data['index'];
-                    $data['chapter_title'] = $chapter_data['chapter_name'];
-                    $data['chapter_content'] = $chapter_data['chapter_content'];
-                    $data['chapter_time'] = $chapter_data['update'];
-                    $data['chapter_word'] = mb_strlen($chapter_data['chapter_content'], 'utf8');
-                    $data['chapter_count'] = $chapter_data['id'];
-                    $data['chapter_url'] = url('home/chapter/index',['id'=>$data['id'],'key'=>$data['chapter_id']]);
+                    // 最新章节 + 更新时间
+                    $data['chapter_content'] = "";                                               // 最新章节内容
+                    $data['chapter_title'] = $chapter_data[0]['chapter_name'];
+                    $data['chapter_url'] = url('home/chapter/index',['id'=>$data['id'],'key'=>$chapter_data[0]['index']]);
+                    $data['chapter_id'] = $chapter_data[0]['index'];
+                    $data['chapter_time'] = $chapter_data[0]['update'];
+                    $data['chapter_word'] = 0;
+                    $data['chapter_count'] = count($chapter_data);
+
+                    // 最新章节信息
+                    $chapter_data = Db::name('novel_chapter')->field('chapter_content')
+                        ->where(['novel_id'=>$data['id'],'index'=>$data['chapter_id'],'status'=>1])->find(); // 章节
+                    if($chapter_data) {
+                        $data['chapter_content'] = $chapter_data['chapter_content'];
+                        $data['chapter_word'] = mb_strlen($chapter_data['chapter_content'], 'utf8');
+                    }
 
 //					if(Config::get('web.data_save_compress')){
 //                        $chapter_data['chapter']=@gzuncompress(base64_decode($chapter_data['chapter']));
@@ -520,8 +526,6 @@ class Api extends Model
 //					$data['chapter_word'] = $chapter_data_last['word'];
 //					$data["chapter_url"]=url('home/chapter/index',['id'=>$chapter_data['id'],'key'=>$data['chapter_id']]);
 //					$data["chapter_count"]=count($chapter_data['chapter']);
-				    //*/
-
 				}else{
 					$data['chapter_id'] = "";
 					$data['chapter_title'] = "";
