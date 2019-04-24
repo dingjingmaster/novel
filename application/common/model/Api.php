@@ -135,11 +135,21 @@ class Api extends Model
     public function get_chapter_list($nid, $order, $limit, $page){
     	$map[] = ['status','=',1];
     	$map[] = ['novel_id','=',$nid];
+    	$index = 0;
     	$chapter_data=Db::name('novel_chapter')->field('id, index, chapter_name, update')->where($map)
-            ->order($order)->find();
-    	$data = [];
+            ->order($order)->select();
+    	$data = array();
     	if($chapter_data){
-    	    array_push($data, $chapter_data);
+    	    foreach ($chapter_data as $ik=>$iv) {
+    	        $tmp = array();
+    	        $tmp['title'] = $iv['chapter_name'];
+                $tmp['update_time'] = $iv['update'];
+                $tmp['update'] = $iv['update'];
+                $tmp['issued'] = 1;
+                $tmp['id'] = $nid;
+                $tmp['index'] = $iv['index'];
+                array_push($data, $tmp);
+            }
 //    		if(Config::get('web.data_save_compress')){
 //                $chapter_data['chapter']=@gzuncompress(base64_decode($chapter_data['chapter']));
 //            }
@@ -172,21 +182,14 @@ class Api extends Model
     	}
     	if($data){
          	foreach ($data as $k=>$v){
-         	    var_dump($v);
-                $data[$k]['id']=$k;
-                $data[$k]['title']=$k['chapter_name'];
-                $data[$k]['new']=(time()-$v['update']<(3*24*3600))?1:0;
-                $data[$k]['time']=$v['update'];
-                $data[$k]['url']=url('home/chapter/index',['id'=>$chapter_data['id'],'key'=>$k]);
-
-//         		if($v['issued']==1){
+         		if($v['issued'] == 1){
 //         			$data[$k]['id']=$k;
-//         			$data[$k]['new']=(time()-$v['update_time']<(3*24*3600))?1:0;
-//					$data[$k]['time']=$v['update_time'];
-//					$data[$k]['url']=url('home/chapter/index',['id'=>$chapter_data['id'],'key'=>$k]);
-//         		}else{
-//         			unset($data[$k]);
-//         		}
+         			$data[$k]['new']=(time()-$v['update_time']<(3*24*3600))?1:0;
+					$data[$k]['time']=$v['update'];
+					$data[$k]['url']=url('home/chapter/index',['id'=>$nid,'key'=>$iv['index']]);
+         		}else{
+         			unset($data[$k]);
+         		}
 			}
 			return $data;
 		}
