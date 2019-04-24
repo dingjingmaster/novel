@@ -19,10 +19,10 @@ class Chapter extends Base
     public function index()
     {
         Cookie::set('__forward__',$this->request->url());
-        $id=$this->request->param('id');
-        $key=$this->request->param('key');
-        $chapter=model('common/api')->get_chapter($id,$key);
-        $info=model('common/api')->novel_detail($chapter['novel_id']);
+        $id=$this->request->param('id');        // 书籍ID
+        $key=$this->request->param('key');      // key
+        $chapter=model('common/api')->get_chapter($id, $key);
+        $info=model('common/api')->novel_detail($key);
         if(!$info){
             $error = model('common/api')->getError();
             $this->error(empty($error) ? '未找到该小说！' : $error,url('Home/Index/index'));

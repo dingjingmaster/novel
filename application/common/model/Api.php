@@ -204,29 +204,38 @@ class Api extends Model
     	$map[] = ['status','=',1];
     	$map[] = ['novel_id','=',$novelID];
         $map[] = ['index','=',$chapterID];
-        $chapter = [];
-    	$chapter_data=Db::name('novel_chapter')
+        $chapter = array();
+    	$chapter_data = Db::name('novel_chapter')
                     ->field('id,novel_id,index,chapter_name,chapter_content,update')
                     ->where($map)->find();
     	if($chapter_data){
-    	    $chapter['id'] = $chapter_data['id'];
-    	    $chapter['title'] = $chapter_data['chapter_name'];
+    	    // 获取本章信息
+            $chapter['title'] = $chapter_data['chapter_name'];
+            $chapter['id'] = $chapter_data['index'];
             $chapter['novel_id'] = $chapter_data['novel_id'];
-
-//            if ((int)$chapter_data['index'] > 0){
-//                $chapter['prev'] = $chapter_data['chapter_name'];
-//                $ctp = Db::name('novel_chapter')
-//                    ->field('id,novel_id,index,chapter_name,chapter_content,update')
-//                    ->
-//                    ->where($map)->find();
-//            }
-
+            $chapter['content'] = $chapter_data['chapter_content'];
+            $chapter['word'] = mb_strlen($chapter_data['chapter_content'], 'utf8');;
+            $chapter['source_id'] = $chapter_data['id'];
             $chapter['prev'] = null;
             $chapter['next'] = null;
-            $chapter['word'] = 0;
-            $chapter['time'] = $chapter_data['update'];
-            $chapter['content'] = $chapter_data['chapter_content'];
-            $chapter['source_id'] = 0;
+            $chapter['time'] = time_format($chapter_data['update']);
+
+            // 上一章 + 下一章
+            $prex = (int)$chapterID - 1;
+            if($prex - 1 >= 0) {
+                $chapter['prev']['id'] = $prex;
+                $chapter['prev']['url'] = url('home/chapter/index',['id'=>$novelID,'key'=>$prex]);
+            }
+            $next = (int)$chapterID + 1;
+            if($next >= 0) {
+                $chapter_data = Db::name('novel_chapter')
+                    ->field('id')
+                    ->where(['status'=>1, 'novel_id'=>$novelID, 'index'=>$chapterID])->find();
+                if($chapter_data) {
+                    $chapter['next']['id'] = $next;
+                    $chapter['next']['url'] = url('home/chapter/index',['id'=>$novelID,'key'=>$next]);
+                }
+            }
 
 
 //    		if(Config::get('web.data_save_compress')){

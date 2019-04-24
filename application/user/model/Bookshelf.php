@@ -25,6 +25,7 @@ class Bookshelf extends Model
 		return $data;
 	}
 
+	/* list */
     public function lists($id=UID,$limit=10,$simple=false){
         $data=Bookshelf::where('user_id',$id)->order('id desc')->paginate($limit,$simple);
         if($data){
