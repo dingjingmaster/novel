@@ -135,18 +135,24 @@ class Api extends Model
     public function get_chapter_list($nid, $order, $limit, $page){
     	$map[] = ['status','=',1];
     	$map[] = ['novel_id','=',$nid];
-    	$chapter_data=Db::name('novel_chapter')->field('id,chapter')->where($map)->find();
+    	$chapter_data=Db::name('novel_chapter')->field('id, index, chapter_name, update')->where($map)
+            ->order($order)->find();
+    	$data = [];
     	if($chapter_data){
-    		if(Config::get('web.data_save_compress')){
-                $chapter_data['chapter']=@gzuncompress(base64_decode($chapter_data['chapter']));
-            }
-    		$chapter_data['chapter']=json_decode($chapter_data['chapter'],true);
+    	    array_push($data, $chapter_data);
+//    		if(Config::get('web.data_save_compress')){
+//                $chapter_data['chapter']=@gzuncompress(base64_decode($chapter_data['chapter']));
+//            }
+//    		$chapter_data['chapter']=json_decode($chapter_data['chapter'],true);
     	}
-    	if(strpos(strtolower($order),'desc') !== false){
-    		$data=array_reverse($chapter_data['chapter']);
-    	}else{
-    		$data=$chapter_data['chapter'];
-    	}
+//    	if(strpos(strtolower($order),'desc') !== false){
+//    		$data=array_reverse($chapter_data['chapter']);
+//    	}else{
+//    		$data=$chapter_data['chapter'];
+//    	}
+
+
+
     	if($page){
     		$class='\\think\\paginator\\driver\\Bootstrap';
     		$page_num  = call_user_func([$class,'getCurrentPage',]);
@@ -166,79 +172,118 @@ class Api extends Model
     	}
     	if($data){
          	foreach ($data as $k=>$v){
-         		if($v['issued']==1){
-         			$data[$k]['id']=$k;
-         			$data[$k]['new']=(time()-$v['update_time']<(3*24*3600))?1:0;
-					$data[$k]['time']=$v['update_time'];
-					$data[$k]['url']=url('home/chapter/index',['id'=>$chapter_data['id'],'key'=>$k]);
-         		}else{
-         			unset($data[$k]);
-         		}
+         	    var_dump($v);
+                $data[$k]['id']=$k;
+                $data[$k]['title']=$k['chapter_name'];
+                $data[$k]['new']=(time()-$v['update']<(3*24*3600))?1:0;
+                $data[$k]['time']=$v['update'];
+                $data[$k]['url']=url('home/chapter/index',['id'=>$chapter_data['id'],'key'=>$k]);
+
+//         		if($v['issued']==1){
+//         			$data[$k]['id']=$k;
+//         			$data[$k]['new']=(time()-$v['update_time']<(3*24*3600))?1:0;
+//					$data[$k]['time']=$v['update_time'];
+//					$data[$k]['url']=url('home/chapter/index',['id'=>$chapter_data['id'],'key'=>$k]);
+//         		}else{
+//         			unset($data[$k]);
+//         		}
 			}
 			return $data;
 		}
     }
 
-    /* 书籍章节内容 */
-    public function get_chapter($id,$key){
+
+    /**
+     *  修改书籍章节内容
+     *
+     *  输入 novelID + chapterIndex
+     *
+     *  输出 id, novel_id 章节名、章节数量、prev
+     */
+    public function get_chapter($novelID, $chapterID){
     	$map[] = ['status','=',1];
-    	$map[] = ['id','=',$id];
-    	$chapter_data=Db::name('novel_chapter')->field('id,chapter,novel_id')->where($map)->find();
+    	$map[] = ['novel_id','=',$novelID];
+        $map[] = ['index','=',$chapterID];
+        $chapter = [];
+    	$chapter_data=Db::name('novel_chapter')
+                    ->field('id,novel_id,index,chapter_name,chapter_content,update')
+                    ->where($map)->find();
     	if($chapter_data){
-    		if(Config::get('web.data_save_compress')){
-                $chapter_data['chapter']=@gzuncompress(base64_decode($chapter_data['chapter']));
-            }
-    		$chapter_data['chapter']=json_decode($chapter_data['chapter'],true);
-    		$chapter=isset($chapter_data['chapter'][$key])?$chapter_data['chapter'][$key]:'';
-    		if($chapter){
-		    	$chapter['id']=$key;
-		    	$chapter['novel_id']=$chapter_data['novel_id'];
-		    	$chapter['source_id']=$chapter_data['id'];
-		    	$chapter_data_keys = array_keys($chapter_data['chapter']);
-		    	$chapter_data_keys_num = array_search($key,$chapter_data_keys);
-		    	if($chapter_data_keys_num<=0){
-		    		$chapter['prev']=null;
-		    	}else{
-		    		$chapter_data_prev_keys=$chapter_data_keys[$chapter_data_keys_num-1];
-		    		$chapter['prev']=$chapter_data['chapter'][$chapter_data_prev_keys];
-		    		$chapter['prev']['id']=$chapter_data_prev_keys;
-		    	}
-		    	if($chapter_data_keys_num>=(count($chapter_data_keys)-1)){
-		    		$chapter['next']=null;
-		    	}else{
-		    		$chapter_data_next_keys=$chapter_data_keys[$chapter_data_keys_num+1];
-		    		$chapter['next']=$chapter_data['chapter'][$chapter_data_next_keys];
-		    		$chapter['next']['id']=$chapter_data_next_keys;
-		    	}
-		    	$chapter['time']=time_format($chapter['update_time']);
-		    	$chapter['prev']['url']=$chapter['prev']?url('home/chapter/index',['id'=>$id,'key'=>$chapter_data_prev_keys]):'javascript:void(0);';
-		    	$chapter['next']['url']=$chapter['next']?url('home/chapter/index',['id'=>$id,'key'=>$chapter_data_next_keys]):'javascript:void(0);';
-		    	if($chapter['auto']==1){
-		    		$getchapter=model('common/union_chapter')->get_chapter($chapter['reurl']);
-		    		if($getchapter['content']){
-		    			$word=mb_strlen($getchapter['content']);
-		    			$this->set_chapter_content($chapter['path'],$getchapter['content']);
-		    			$chapter_data['chapter'][$key]['auto']=0;
-		    			$chapter_data['chapter'][$key]['word']=$word;
-		    			$chapter_data['chapter'][$key]['intro']=$getchapter['intro'];
-		    			$chapter_data['chapter']=json_encode($chapter_data['chapter']);
-		    			if(Config::get('web.data_save_compress')){
-		                    $chapter_data['chapter']=base64_encode(gzcompress($chapter_data['chapter'],Config::get('web.data_save_compress_level')));
-		                }
-		    			Db::name('novel_chapter')->update($chapter_data);
-		    			$chapter['content']=$getchapter['content'];
-						$chapter['intro']=$getchapter['intro'];
-						$chapter['word']=$word;
-		    		}else{
-		    			$chapter['content']=model('common/union_chapter')->getError();
-		    		}
-		    	}else{
-		    		$chapter['content']=$this->get_chapter_content($chapter['path']);
-		    	}
-		    	$chapter['content']=$this->change_chapter_content($chapter['content']);
-		    	return $chapter;
-    		}
+    	    $chapter['id'] = $chapter_data['id'];
+    	    $chapter['title'] = $chapter_data['chapter_name'];
+            $chapter['novel_id'] = $chapter_data['novel_id'];
+
+//            if ((int)$chapter_data['index'] > 0){
+//                $chapter['prev'] = $chapter_data['chapter_name'];
+//                $ctp = Db::name('novel_chapter')
+//                    ->field('id,novel_id,index,chapter_name,chapter_content,update')
+//                    ->
+//                    ->where($map)->find();
+//            }
+
+            $chapter['prev'] = null;
+            $chapter['next'] = null;
+            $chapter['word'] = 0;
+            $chapter['time'] = $chapter_data['update'];
+            $chapter['content'] = $chapter_data['chapter_content'];
+            $chapter['source_id'] = 0;
+
+
+//    		if(Config::get('web.data_save_compress')){
+//                $chapter_data['chapter']=@gzuncompress(base64_decode($chapter_data['chapter']));
+//            }
+//    		$chapter_data['chapter']=json_decode($chapter_data['chapter'],true);
+//    		$chapter=isset($chapter_data['chapter'][$key])?$chapter_data['chapter'][$key]:'';
+//    		if($chapter){
+//		    	$chapter['id']=$key;
+//		    	$chapter['novel_id']=$chapter_data['novel_id'];
+//		    	$chapter['source_id']=$chapter_data['id'];
+//		    	$chapter_data_keys = array_keys($chapter_data['chapter']);
+//		    	$chapter_data_keys_num = array_search($key,$chapter_data_keys);
+//		    	if($chapter_data_keys_num<=0){
+//		    		$chapter['prev']=null;
+//		    	}else{
+//		    		$chapter_data_prev_keys=$chapter_data_keys[$chapter_data_keys_num-1];
+//		    		$chapter['prev']=$chapter_data['chapter'][$chapter_data_prev_keys];
+//		    		$chapter['prev']['id']=$chapter_data_prev_keys;
+//		    	}
+//		    	if($chapter_data_keys_num>=(count($chapter_data_keys)-1)){
+//		    		$chapter['next']=null;
+//		    	}else{
+//		    		$chapter_data_next_keys=$chapter_data_keys[$chapter_data_keys_num+1];
+//		    		$chapter['next']=$chapter_data['chapter'][$chapter_data_next_keys];
+//		    		$chapter['next']['id']=$chapter_data_next_keys;
+//		    	}
+//		    	$chapter['time']=time_format($chapter['update_time']);
+//		    	$chapter['prev']['url']=$chapter['prev']?url('home/chapter/index',['id'=>$id,'key'=>$chapter_data_prev_keys]):'javascript:void(0);';
+//		    	$chapter['next']['url']=$chapter['next']?url('home/chapter/index',['id'=>$id,'key'=>$chapter_data_next_keys]):'javascript:void(0);';
+//		    	if($chapter['auto']==1){
+//		    		$getchapter=model('common/union_chapter')->get_chapter($chapter['reurl']);
+//		    		if($getchapter['content']){
+//		    			$word=mb_strlen($getchapter['content']);
+//		    			$this->set_chapter_content($chapter['path'],$getchapter['content']);
+//		    			$chapter_data['chapter'][$key]['auto']=0;
+//		    			$chapter_data['chapter'][$key]['word']=$word;
+//		    			$chapter_data['chapter'][$key]['intro']=$getchapter['intro'];
+//		    			$chapter_data['chapter']=json_encode($chapter_data['chapter']);
+//		    			if(Config::get('web.data_save_compress')){
+//		                    $chapter_data['chapter']=base64_encode(gzcompress($chapter_data['chapter'],Config::get('web.data_save_compress_level')));
+//		                }
+//		    			Db::name('novel_chapter')->update($chapter_data);
+//		    			$chapter['content']=$getchapter['content'];
+//						$chapter['intro']=$getchapter['intro'];
+//						$chapter['word']=$word;
+//		    		}else{
+//		    			$chapter['content']=model('common/union_chapter')->getError();
+//		    		}
+//		    	}else{
+//		    		$chapter['content']=$this->get_chapter_content($chapter['path']);
+//		    	}
+//		    	$chapter['content']=$this->change_chapter_content($chapter['content']);
+//		    	return $chapter;
+//    		}
 	    }
+        return $chapter;
     }
 
 	public function get_link($limit){
@@ -418,6 +463,10 @@ class Api extends Model
 		}
 	}
 
+	/**
+     *  $data： novel 表中的所有字段
+     *  $type： novel
+     */
 	public function data_change($data,$type){
 		$data["cid"]=$data["category"];                                                 // 分类ID
 		$data["ctitle"]=$this->get_category($data["category"],'title');           // 分类标题
@@ -437,7 +486,10 @@ class Api extends Model
 				$chapter_data=Db::name('novel_chapter')->field('id,index,chapter_name,chapter_content, update')
                     ->where(['novel_id'=>$data['id'],'status'=>1])->order('index','desc')->limit(1)->find(); // 章节
                 if($chapter_data){
-                    $data['chapter_id'] = $chapter_data['id'];
+                    $allowUrl = ['home/novel/index'];
+                    $visit = strtolower(Request::module()."/".Request::controller()."/".Request::action());
+                    $data['source_id'] = $chapter_data['id'];
+                    $data['chapter_id'] = $chapter_data['index'];
                     $data['chapter_title'] = $chapter_data['chapter_name'];
                     $data['chapter_content'] = $chapter_data['chapter_content'];
                     $data['chapter_time'] = $chapter_data['update'];
@@ -507,6 +559,13 @@ class Api extends Model
 		}
 	}
 
+    /**
+     *  @param $id  - NovelID
+     *  @return bool
+     *  @throws \think\db\exception\DataNotFoundException
+     *  @throws \think\db\exception\ModelNotFoundException
+     *  @throws \think\exception\DbException
+     */
 	public function novel_detail($id){
 		$info = Db::name("novel")->where(['id'=>$id,'status'=>1])->find();
 		if(!$info){
@@ -517,14 +576,14 @@ class Api extends Model
 	}
 
 	public function novel_reader_url($id){
-		$chapter=Db::name('novel_chapter')->field('id,chapter')->where(['novel_id'=>$id,'status'=>1])->find();
+		$chapter=Db::name('novel_chapter')->field('id,index')->where(['novel_id'=>$id,'status'=>1])->find();
 		if($chapter){
-			if(Config::get('web.data_save_compress')){
-                $chapter['chapter']=@gzuncompress(base64_decode($chapter['chapter']));
-            }
-			$chapter['chapter']=json_decode($chapter['chapter'],true);
-			$chapter_key=key($chapter['chapter']);
-			return url('home/chapter/index',['id'=>$chapter['id'],'key'=>$chapter_key]);
+//			if(Config::get('web.data_save_compress')){
+//                $chapter['chapter']=@gzuncompress(base64_decode($chapter['chapter']));
+//            }
+//			$chapter['chapter']=json_decode($chapter['chapter'],true);
+//			$chapter_key=key($chapter['chapter']);
+			return url('home/chapter/index',['id'=>$chapter['id'],'key'=>$chapter['index']]);
 		}
 	}
 

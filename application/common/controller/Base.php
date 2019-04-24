@@ -20,6 +20,15 @@ class Base extends Controller{
     protected $mold;
     protected $home_tplpath;
 
+    /**
+     *  每个页面都需要的变量——头部 + 全局home
+     *
+     *  输出：
+     *      mold：wap 或 web
+     *      web：
+     *      user：
+     *      home_tplpath：
+     */
     protected function initialize(){
         if(!Config::get('web.close')){
             $this->error(Config::get('web.lose_tip'));

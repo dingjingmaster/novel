@@ -14,12 +14,10 @@ namespace app\home\controller;
 use app\common\controller\Base;
 use think\facade\Cookie;
 
-class Novel extends Base
-{
-    public function index()
-    {
+class Novel extends Base {
+    public function index() {
         Cookie::set('__forward__',$this->request->url());
-        $id=$this->request->param('id');
+        $id=$this->request->param('id');                    // novelID
         $info=model('common/api')->novel_detail($id);
         if(!$info){
             $error = model('common/api')->getError();
