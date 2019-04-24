@@ -1,0 +1,8 @@
+.idea/
+runtime/
+uploads/addons/*
+uploads/config/*
+uploads/news/*
+uploads/novel/*
+uploads/slider/*
+uploads/ueditor/*
