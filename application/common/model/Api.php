@@ -579,15 +579,20 @@ class Api extends Model
 		return $this->data_change($info,'novel');
 	}
 
+	/**
+     *  $id： 小说ID
+	 */
 	public function novel_reader_url($id){
-		$chapter=Db::name('novel_chapter')->field('id,index')->where(['novel_id'=>$id,'status'=>1])->find();
+		$chapter=Db::name('novel_chapter')->field('novel_id,index')
+                    ->where(['novel_id'=>$id,'status'=>1])
+                    ->order('index')->find();
 		if($chapter){
 //			if(Config::get('web.data_save_compress')){
 //                $chapter['chapter']=@gzuncompress(base64_decode($chapter['chapter']));
 //            }
 //			$chapter['chapter']=json_decode($chapter['chapter'],true);
 //			$chapter_key=key($chapter['chapter']);
-			return url('home/chapter/index',['id'=>$chapter['id'],'key'=>$chapter['index']]);
+			return url('home/chapter/index',['id'=>$chapter['novel_id'],'key'=>$chapter['index']]);
 		}
 	}
 
@@ -600,6 +605,10 @@ class Api extends Model
 		return $this->data_change($info,'news');
 	}
 
+	/**
+     *  $id： 小说ID
+     *  $type： novel
+	 */
 	public function hits($id,$type){
 		$hits_time=Db::name($type)->where(['id'=>$id])->value('hits_time');
 		if(date('d',$hits_time)==date('d',time())){
