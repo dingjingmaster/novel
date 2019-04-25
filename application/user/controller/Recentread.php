@@ -15,8 +15,13 @@ use app\common\controller\UserBase;
 use think\Db;
 use think\paginator\driver\Bootstrap;
 
-class Recentread extends UserBase
-{
+/**
+ *  最近阅读
+ *  Class Recentread
+ *  @package app\user\controller
+ */
+
+class Recentread extends UserBase {
 
     public function index(){
     	$Recentread=model('recentread');

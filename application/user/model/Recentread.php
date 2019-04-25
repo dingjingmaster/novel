@@ -32,7 +32,9 @@ class Recentread extends Model
             $data=array_reverse(unserialize($data),true);
             $count=count($data);
             $data=array_slice($data,($page-1)*$limit,$limit,true);
+            var_dump($data);
             foreach ($data as $key=>$val){
+
                 $novel=model('common/api')->novel_detail($key);
                 if($novel !== false){
                     $read=explode('|',$val);
