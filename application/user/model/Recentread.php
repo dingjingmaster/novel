@@ -15,8 +15,7 @@ use think\Model;
 use think\facade\Request;
 use think\facade\Cookie;
 
-class Recentread extends Model
-{
+class Recentread extends Model {
     protected $autoWriteTimestamp = true;
 
 	public function info($id){
@@ -32,13 +31,11 @@ class Recentread extends Model
             $data=array_reverse(unserialize($data),true);
             $count=count($data);
             $data=array_slice($data,($page-1)*$limit,$limit,true);
-            var_dump($data);
             foreach ($data as $key=>$val){
-
                 $novel=model('common/api')->novel_detail($key);
                 if($novel !== false){
                     $read=explode('|',$val);
-                    $readlog[]=['novel_id'=>$key,'chapter_id'=>$read[0],'read_time'=>$read[2],'book'=>$novel,'reader_url'=>url('home/chapter/index',['id'=>$read[0],'key'=>$read[1]])];
+                    $readlog[]=['novel_id'=>$key,'chapter_id'=>$read[0],'read_time'=>$read[2],'book'=>$novel,'reader_url'=>url('home/chapter/index',['id'=>$key,'key'=>$read[1]])];
                 }
             }
             return ['count'=>$count,'list'=>$readlog];
