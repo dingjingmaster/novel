@@ -18,7 +18,7 @@ class Bookshelf extends UserBase
 
     public function index(){
     	$Bookshelf=model('bookshelf');
-    	$list=$Bookshelf->lists(UID,10,($this->mold=='web'?false:true));
+    	$list=$Bookshelf->lists(UID, 10, ($this->mold=='web'?false:true));
     	$this->assign('list',$list);
         return $this->fetch($this->user_tplpath.'bookshelf.html');
     }

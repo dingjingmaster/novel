@@ -25,7 +25,12 @@ class Bookshelf extends Model
 		return $data;
 	}
 
-	/* list */
+	/**
+     *  书架列出书籍
+     *  $id： uid
+     *  $limit： 数量
+     *  $simple： web 或 手机
+     */
     public function lists($id=UID,$limit=10,$simple=false){
         $data=Bookshelf::where('user_id',$id)->order('id desc')->paginate($limit,$simple);
         if($data){
@@ -34,17 +39,16 @@ class Bookshelf extends Model
                 if($novel !== false){
                     $data[$k]['book']=$novel;
                     if($v['chapter_id']){
-                        $data[$k]['reader_url']=url('home/chapter/index',['id'=>$v['chapter_id'],'key'=>$v['chapter_key']]);
+                        $data[$k]['reader_url']=url('home/chapter/index',['id'=>$v['novel_id'],'key'=>$v['chapter_id']]);
                     }else{
-                        $chapter=Db::name('novel_chapter')->field('id,chapter')->where(['novel_id'=>$v['novel_id']])->find();
+                        $chapter=Db::name('novel_chapter')
+                                ->field('index, index, chapter_content')
+                                ->where(['novel_id'=>$v['novel_id']])
+                                ->find();
                         if($chapter){
-                            if(Config::get('web.data_save_compress')){
-                                $chapter['chapter']=@gzuncompress(base64_decode($chapter['chapter']));
-                            }
-                            $chapter['chapter']=json_decode($chapter['chapter'],true);
-                            $data[$k]['reader_url']=url('home/chapter/index',['id'=>$chapter['id'],'key'=>key($chapter['chapter'])]);
+                            $data[$k]['reader_url']=url('home/chapter/index',['id'=>$v['novel_id'],'key'=>$chapter['index']]);
                         }else{
-                            $data[$k]['reader_url']=url('home/novel/index',['id'=>$data['id']]);
+                            $data[$k]['reader_url']=url('home/novel/index',['id'=>$v['novel_id']]);
                         }
                     }
                 }else{
@@ -70,9 +74,9 @@ class Bookshelf extends Model
         }
     }
 
-    public function chapter_update($novel_id,$chapter_id,$chapter_key){
+    public function chapter_update($novel_id,$chapter_id,$chapter_name){
         if(UID){
-            Bookshelf::where(['user_id'=>UID,'novel_id'=>$novel_id])->update(['chapter_id'=>$chapter_id,'chapter_key'=>$chapter_key]);
+            Bookshelf::where(['user_id'=>UID,'novel_id'=>$novel_id])->update(['chapter_id'=>$chapter_id,'chapter_key'=>$chapter_name]);
         }
     }
 

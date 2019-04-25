@@ -37,7 +37,7 @@ class Chapter extends Base {
             $reader_config=explode('|',$reader_config);
         }
         //阅读记录
-        model("user/recentread")->add($chapter['novel_id'], $id, $chapter['id']);
+        model("user/recentread")->add($id, $key, $chapter['title']);
         $is_bookshelf=model('user/bookshelf')->check($info['id']);
         $this->assign($info);
         $this->assign('is_bookshelf',($is_bookshelf?$is_bookshelf:0));

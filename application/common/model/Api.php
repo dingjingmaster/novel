@@ -232,8 +232,8 @@ class Api extends Model
                     $chapter['next']['url'] = url('home/chapter/index',['id'=>$novelID,'key'=>$next]);
                 }
             }
+            return $chapter;
 	    }
-        return $chapter;
     }
 
 	public function get_link($limit){
@@ -501,11 +501,8 @@ class Api extends Model
 	}
 
     /**
-     *  @param $id  - NovelID
-     *  @return bool
-     *  @throws \think\db\exception\DataNotFoundException
-     *  @throws \think\db\exception\ModelNotFoundException
-     *  @throws \think\exception\DbException
+     *  查找小说表
+     *  $id： 小说 ID
      */
 	public function novel_detail($id){
 		$info = Db::name("novel")

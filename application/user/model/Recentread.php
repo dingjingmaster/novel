@@ -48,14 +48,14 @@ class Recentread extends Model
      *
      *  输入： 小说ID、章节ID、 章节名
      */
-    public function add($novel_id,$chapter_id,$chapter_key){
+    public function add($novel_id,$chapter_id,$chapter_name){
         $data=unserialize(Cookie::get('read_log'));
-        $data[$novel_id]=$chapter_id.'|'.$chapter_key.'|'.time();
+        $data[$novel_id]=$chapter_name.'|'.$chapter_id.'|'.time();
         if(count($data)>40){
             array_shift($data); // 最近一次阅读的小说章节id 和 章节名
         }
         /* 持久化存储小说阅读进度 */
-        model('user/bookshelf')->chapter_update($novel_id, $chapter_id, $chapter_key);
+        model('user/bookshelf')->chapter_update($novel_id, $chapter_id, $chapter_name);
         Cookie::forever('read_log',serialize($data));
     }
 
