@@ -65,16 +65,16 @@ INSERT INTO `ky_category` VALUES (1,'男生',0,1,'','','','','type.html','novel.
                                  (105,'灵异悬疑',1,6,'','','','','lists.html','novel.html','lists.html','',1536658034,1536995233,1,0),
                                  (106,'游戏竞技',1,7,'','','','','lists.html','novel.html','lists.html','',1539845119,1539845119,1,0),
                                  (107,'文学名著',1,8,'','','','','lists.html','novel.html','lists.html','',1536658169,1536658169,1,0),
-                                 (108,'二次元',1,9,'','','','','lists.html','novel.html','lists.html','',1539845119,1539845119,1,0),
+                                 (108,'二次元',  1,9,'','','','','lists.html','novel.html','lists.html','',1539845119,1539845119,1,0),
+                                 (109,'其它',   1,10,'','','','','lists.html','novel.html','lists.html','',1536658169,1536658169,1,0),
                                  (200,'现代言情',2,1,'','','','','lists.html','novel.html','lists.html','',1536658137,1536658137,1,0),
                                  (201,'古代言情',2,2,'','','','','lists.html','novel.html','lists.html','',1536658146,1536658146,1,0),
                                  (202,'幻想言情',2,3,'','','','','lists.html','novel.html','lists.html','',1536658154,1536658154,1,0),
                                  (203,'女生悬疑',2,4,'','','','','lists.html','novel.html','lists.html','',1536658169,1536658169,1,0),
                                  (204,'同人小说',2,5,'','','','','lists.html','novel.html','lists.html','',1536658169,1536658169,1,0),
                                  (205,'青春耽美',2,6,'','','','','lists.html','novel.html','lists.html','',1536658169,1536658169,1,0),
-                                 (4,'书库',0,4,'','','','','lists.html','lists.html','lists.html','home/lists/lists',1546912527,1547957943,1,3),
-                                 (5,'排行',0,5,'','','','','rank.html','rank.html','lists.html','',1548416346,1548416366,1,2),
-                                 (999,'其它',1,0,'','','','','lists.html','novel.html','lists.html','',1536658169,1536658169,1,0);
+                                 (4,'书库',0,4,'','','','',      'lists.html','lists.html','lists.html','home/lists/lists',1546912527,1547957943,1,3),
+                                 (5,'排行',0,5,'','','','',      'rank.html' ,'rank.html','lists.html','',1548416346,1548416366,1,2);
 
 CREATE TABLE IF NOT EXISTS `ky_collect` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
