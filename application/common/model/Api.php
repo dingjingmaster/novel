@@ -217,15 +217,15 @@ class Api extends Model
 
             // 上一章 + 下一章
             $prex = (int)$chapterID - 1;
-            if($prex >= 0) {
+            if($prex >= 1) {
                 $chapter['prev']['id'] = $prex;
                 $chapter['prev']['url'] = url('home/chapter/index',['id'=>$novelID,'key'=>$prex]);
             }
             $next = (int)$chapterID + 1;
-            if($next >= 0) {
+            if($next > 0) {
                 $chapter_data = Db::name('novel_chapter')
                     ->field('id')
-                    ->where(['status'=>1, 'novel_id'=>$novelID, 'index'=>$chapterID])
+                    ->where(['status'=>1, 'novel_id'=>$novelID, 'index'=>$next])
                     ->find();
                 if($chapter_data) {
                     $chapter['next']['id'] = $next;

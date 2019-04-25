@@ -55,7 +55,8 @@ CREATE TABLE IF NOT EXISTS `ky_category` (
   KEY `pid` (`pid`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='分类表';
 
-INSERT INTO `ky_category` VALUES (1,'男生',0,1,'','','','','type.html','novel.html','lists.html','',1440469030,1539841781,1,0),
+INSERT INTO `ky_category` VALUES (0,'其它',1,0,'','','','','lists.html','novel.html','lists.html','',1536658169,1536658169,1,0),
+                                 (1,'男生',0,1,'','','','','type.html','novel.html','lists.html','',1440469030,1539841781,1,0),
                                  (2,'女生',0,2,'','','','','type.html','novel.html','lists.html','',1450770206,1536657804,1,0),
                                  (100,'玄幻奇幻',1,1,'','','','','lists.html','novel.html','lists.html','',1536657923,1536657923,1,0),
                                  (101,'武侠仙侠',1,2,'','','','','lists.html','novel.html','lists.html','',1536657995,1536657995,1,0),
@@ -66,7 +67,6 @@ INSERT INTO `ky_category` VALUES (1,'男生',0,1,'','','','','type.html','novel.
                                  (106,'游戏竞技',1,7,'','','','','lists.html','novel.html','lists.html','',1539845119,1539845119,1,0),
                                  (107,'文学名著',1,8,'','','','','lists.html','novel.html','lists.html','',1536658169,1536658169,1,0),
                                  (108,'二次元',1,9,'','','','','lists.html','novel.html','lists.html','',1539845119,1539845119,1,0),
-                                 (0,'其它',1,10,'','','','','lists.html','novel.html','lists.html','',1536658169,1536658169,1,0),
                                  (200,'现代言情',2,1,'','','','','lists.html','novel.html','lists.html','',1536658137,1536658137,1,0),
                                  (201,'古代言情',2,2,'','','','','lists.html','novel.html','lists.html','',1536658146,1536658146,1,0),
                                  (202,'幻想言情',2,3,'','','','','lists.html','novel.html','lists.html','',1536658154,1536658154,1,0),
@@ -366,7 +366,7 @@ CREATE TABLE IF NOT EXISTS `ky_novel` (
   `create_time` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '创建时间',
   `update_time` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '更新时间',
   `reurl` varchar(300) NOT NULL COMMENT '来源',
-  `status` tinyint(2) NOT NULL DEFAULT '1' COMMENT '状态',
+  `status` tinyint(2) NOT NULL DEFAULT '1' COMMENT '状态：1表示不屏蔽',
   `hits_day` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '日浏览',
   `hits_week` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '周浏览',
   `hits_month` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '月浏览',
