@@ -55,8 +55,7 @@ CREATE TABLE IF NOT EXISTS `ky_category` (
   KEY `pid` (`pid`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='分类表';
 
-INSERT INTO `ky_category` VALUES (0,'其它',1,0,'','','','','lists.html','novel.html','lists.html','',1536658169,1536658169,1,0),
-                                 (1,'男生',0,1,'','','','','type.html','novel.html','lists.html','',1440469030,1539841781,1,0),
+INSERT INTO `ky_category` VALUES (1,'男生',0,1,'','','','','type.html','novel.html','lists.html','',1440469030,1539841781,1,0),
                                  (2,'女生',0,2,'','','','','type.html','novel.html','lists.html','',1450770206,1536657804,1,0),
                                  (100,'玄幻奇幻',1,1,'','','','','lists.html','novel.html','lists.html','',1536657923,1536657923,1,0),
                                  (101,'武侠仙侠',1,2,'','','','','lists.html','novel.html','lists.html','',1536657995,1536657995,1,0),
@@ -74,7 +73,8 @@ INSERT INTO `ky_category` VALUES (0,'其它',1,0,'','','','','lists.html','novel
                                  (204,'同人小说',2,5,'','','','','lists.html','novel.html','lists.html','',1536658169,1536658169,1,0),
                                  (205,'青春耽美',2,6,'','','','','lists.html','novel.html','lists.html','',1536658169,1536658169,1,0),
                                  (4,'书库',0,4,'','','','','lists.html','lists.html','lists.html','home/lists/lists',1546912527,1547957943,1,3),
-                                 (5,'排行',0,5,'','','','','rank.html','rank.html','lists.html','',1548416346,1548416366,1,2);
+                                 (5,'排行',0,5,'','','','','rank.html','rank.html','lists.html','',1548416346,1548416366,1,2),
+                                 (999,'其它',1,0,'','','','','lists.html','novel.html','lists.html','',1536658169,1536658169,1,0);
 
 CREATE TABLE IF NOT EXISTS `ky_collect` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
@@ -347,7 +347,7 @@ CREATE TABLE IF NOT EXISTS `ky_news` (
 
 CREATE TABLE IF NOT EXISTS `ky_novel` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `category` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '所属分类',
+  `category` int(10) unsigned NOT NULL DEFAULT '999' COMMENT '所属分类',
   `title` char(80) NOT NULL DEFAULT '' COMMENT '名称',
   `author` char(120) DEFAULT NULL COMMENT '作者',
   `pic` varchar(255) DEFAULT NULL COMMENT '图片',

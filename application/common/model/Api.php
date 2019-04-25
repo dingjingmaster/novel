@@ -149,6 +149,7 @@ class Api extends Model
     	if($chapter_data){
     	    foreach ($chapter_data as $ik=>$iv) {
     	        $tmp = array();
+    	        $tmp['id'] = $ik;
     	        $tmp['title'] = $iv['chapter_name'];
                 $tmp['update_time'] = $iv['update'];
                 $tmp['update'] = $iv['update'];
@@ -177,7 +178,6 @@ class Api extends Model
                     $data=array_slice($data,0,$limit,true);
                 }
             }
-
             if($data){
                 foreach ($data as $k=>$v) {
                     if ($v['issued'] != 1) {
