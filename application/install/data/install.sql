@@ -388,6 +388,7 @@ CREATE TABLE IF NOT EXISTS `ky_novel_chapter` (
   `update` int(11) unsigned NOT NULL DEFAULT '0',
   `source_url` varchar(300) NOT NULL COMMENT '源链接',
   `status` tinyint(2) NOT NULL DEFAULT '1' COMMENT '状态',
+  `issued` tinyint(2) NOT NULL DEFAULT '1' COMMENT '是否发布',
   PRIMARY KEY (`id`),
   KEY `novel_id` (`novel_id`),
   UNIQUE (`source_url`)

@@ -43,13 +43,19 @@ class Recentread extends Model
         }
     }
 
+    /**
+     *  添加/更新阅读进度
+     *
+     *  输入： 小说ID、章节ID、 章节名
+     */
     public function add($novel_id,$chapter_id,$chapter_key){
         $data=unserialize(Cookie::get('read_log'));
         $data[$novel_id]=$chapter_id.'|'.$chapter_key.'|'.time();
         if(count($data)>40){
-            array_shift($data);
+            array_shift($data); // 最近一次阅读的小说章节id 和 章节名
         }
-        model('user/bookshelf')->chapter_update($novel_id,$chapter_id,$chapter_key);
+        /* 持久化存储小说阅读进度 */
+        model('user/bookshelf')->chapter_update($novel_id, $chapter_id, $chapter_key);
         Cookie::forever('read_log',serialize($data));
     }
 

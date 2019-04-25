@@ -50,7 +50,12 @@ class Base extends Controller{
         $this->assign('home_tplpath','/'.$this->home_tplpath);
 	}
 
-	/* 获得章节信息的 ajax */
+	/**
+     *  获得章节信息的
+     *
+     *  输入：
+     *      template： 模版路径
+     */
     protected function fetch($template = '', $vars = [], $config = [], $renderContent = false)
     {
         $fetch=$this->view->fetch($template, $vars, $config, $renderContent);
