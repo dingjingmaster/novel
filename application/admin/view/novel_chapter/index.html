@@ -114,7 +114,7 @@
 
     function chapter_save(data){
       layer.msg(data.msg, {icon: 1,shade: 0.3,time: 2000},function(layero, index){
-        if(data.data.issued==1){
+        if(data.data.issued == 1){
           location.reload();
         }else{
           $('.layui-card-status li.cur').find('h4').text($('input[name="title"]').val());

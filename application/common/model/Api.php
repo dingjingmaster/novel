@@ -209,7 +209,7 @@ class Api extends Model
             $chapter['id'] = $chapter_data['chapter_name'];
             $chapter['novel_id'] = $chapter_data['novel_id'];
             $chapter['content'] = $chapter_data['chapter_content'];
-            $chapter['word'] = mb_strlen($chapter_data['chapter_content'], 'utf8');;
+            $chapter['word'] = mb_strlen($chapter_data['chapter_content'], 'utf8');
             $chapter['source_id'] = $chapter_data['id'];
             $chapter['prev'] = null;
             $chapter['next'] = null;

@@ -16,8 +16,7 @@ use think\facade\Session;
 use think\Db;
 use captcha\Captcha;
 
-class User extends UserBase
-{
+class User extends UserBase {
 
     public function login($username = null, $password = null){
         if(Config::get('web.user_model_status')!=1){

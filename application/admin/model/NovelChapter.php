@@ -22,13 +22,22 @@ class NovelChapter extends Model{
 
     protected $insert = ['status'=>1];
 
+    /**
+     *  功能：
+     */
     protected function set_chapter($data){
-        $chapter=NovelChapter::where(['id'=>$data['id']])->value('chapter');
-        if(Config::get('web.data_save_compress')){
-            $chapter=@gzuncompress(base64_decode($chapter));
-        }
-        $chapter=json_decode($chapter,true);
-        $word=mb_strlen($data['content']);
+
+        echo 'set_chapter';
+        var_dump($data);
+
+        $chapter=NovelChapter::where(['id'=>$data['id']])
+                ->value('chapter');
+
+//        if(Config::get('web.data_save_compress')){
+//            $chapter=@gzuncompress(base64_decode($chapter));
+//        }
+//        $chapter=json_decode($chapter,true);
+//        $word=mb_strlen($data['content']);
         $chapter_data=[
             'title'=>$data['title'],
             'intro'=>$data['intro'],
@@ -58,65 +67,85 @@ class NovelChapter extends Model{
         return ['chapter'=>$chapter,'key'=>$key];
     }
 
-	public function info($id,$key){
-    	$info=NovelChapter::where(['id'=>$id])->field('id,chapter,novel_id')->find()->toArray();
-        if(Config::get('web.data_save_compress')){
-            $info['chapter']=@gzuncompress(base64_decode($info['chapter']));
-        }
-        $info['chapter']=json_decode($info['chapter'],true);
-        if($info['chapter'][$key]['auto']==0){
-            $info['chapter'][$key]['content']=model('common/api')->get_chapter_content($info['chapter'][$key]['path']);
-        }
-        $info['chapter'][$key]['id']=$id;
-        $info['chapter'][$key]['key']=$key;
-        $info['chapter'][$key]['novel_id']=$info['novel_id'];
-		return $info['chapter'][$key];
+	public function info($id, $key){
+
+//        echo 'info';
+//        echo $id . '  -  ' . $key;
+//
+//    	$info=NovelChapter::where(['id'=>$id])->field('id,chapter,novel_id')->find()->toArray();
+//        if(Config::get('web.data_save_compress')){
+//            $info['chapter']=@gzuncompress(base64_decode($info['chapter']));
+//        }
+//        $info['chapter']=json_decode($info['chapter'],true);
+//        if($info['chapter'][$key]['auto']==0){
+//            $info['chapter'][$key]['content']=model('common/api')->get_chapter_content($info['chapter'][$key]['path']);
+//        }
+//        $info['chapter'][$key]['id']=$id;
+//        $info['chapter'][$key]['key']=$key;
+//        $info['chapter'][$key]['novel_id']=$info['novel_id'];
+//		return $info['chapter'][$key];
 	}
 
+	/**
+     *  输入： 小说ID
+	 *
+	 */
     public function lists($id){
-        $list=NovelChapter::where(['novel_id'=>$id])->field('id,chapter')->find();
-        if(empty($list)){
-            $list=['chapter'=>[],'id'=>''];
-        }else{
-            if(Config::get('web.data_save_compress')){
-                $list['chapter']=@gzuncompress(base64_decode($list['chapter']));
+        $data=Db::name('novel_chapter')
+                ->where(['novel_id'=>$id, 'status'=>1])
+                ->field('index, chapter_name, update, chapter_content')
+                ->order('index')
+                ->select();
+        $list=['chapter'=>[],'id'=>''];
+        $chapter = array();
+        if($data) {
+            $list['id'] = $id;
+            foreach ($data as $ik => $iv) {
+                $tmp['id'] = $iv['index'];
+                $tmp['key'] = $iv['index'];
+                $tmp['title'] = $iv['chapter_name'];
+                $tmp['content'] = $iv['chapter_content'];
+                $tmp['update_time'] = $iv['update'];
+                $tmp['word'] = mb_strlen($iv['chapter_content'], 'utf8');
+                array_push($chapter, $tmp);
             }
-            $list['chapter']=json_decode($list['chapter'],true);
-            $list['chapter']=$list['chapter']?array_reverse($list['chapter'],true):[];
+            $list['chapter'] = $chapter;
         }
         return $list;
     }
 
 	public function edit($data){
-        $validate = new NovelChapterValidate;
-        if (!$validate->check($data)) {
-            $this->error=$validate->getError();
-            return false;
-        }
-        $NovelChapter = new NovelChapter();
-        $chapter=$this->set_chapter($data);
-        $data['chapter']=$chapter['chapter'];
-        if(empty($data['id'])){
-            $result = $NovelChapter->allowField(true)->save($data);
-        }else{
-            $result = $NovelChapter->allowField(true)->isUpdate(true)->save($data);
-        }
-        if(false === $result){
-            $this->error=$NovelChapter->getError();
-            return false;
-        }
-        if(empty($data['id'])){
-            return ['id'=>$NovelChapter->id,'key'=>$chapter['key']];
-        }else{
-            if(empty($data['issued'])){
-                return $chapter['key'];
-            }else{
-                return $result;    
-            }
-        }
+//        echo 'edit';
+//        $validate = new NovelChapterValidate;
+//        if (!$validate->check($data)) {
+//            $this->error=$validate->getError();
+//            return false;
+//        }
+//        $NovelChapter = new NovelChapter();
+//        $chapter=$this->set_chapter($data);
+//        $data['chapter']=$chapter['chapter'];
+//        if(empty($data['id'])){
+//            $result = $NovelChapter->allowField(true)->save($data);
+//        }else{
+//            $result = $NovelChapter->allowField(true)->isUpdate(true)->save($data);
+//        }
+//        if(false === $result){
+//            $this->error=$NovelChapter->getError();
+//            return false;
+//        }
+//        if(empty($data['id'])){
+//            return ['id'=>$NovelChapter->id,'key'=>$chapter['key']];
+//        }else{
+//            if(empty($data['issued'])){
+//                return $chapter['key'];
+//            }else{
+//                return $result;
+//            }
+//        }
     }
 
     public function del($id,$key){
+        echo 'del';
         $word=0;
         $map = ['id' => $id];
         $data=NovelChapter::where($map)->field('id,novel_id,chapter')->find()->toArray();
