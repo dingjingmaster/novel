@@ -495,8 +495,16 @@ input:-webkit-autofill,select:-webkit-autofill,textarea:-webkit-autofill {
   color: #fff
 }
 
+.footer-announce-info{
+  margin: 0 auto;
+  max-width: 800px;
+  color: #999;
+  font-size: 12px;
+  line-height: 24px
+}
+
 .footer-box .footer-announce {
-  margin-top: 30px;
+  margin-top: 10px;
   color: #999;
   font-size: 12px;
   line-height: 24px
