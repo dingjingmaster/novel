@@ -206,7 +206,7 @@ class Api extends Model
     	if($chapter_data){
     	    // 获取本章信息
             $chapter['title'] = $chapter_data['chapter_name'];
-            $chapter['id'] = (int)$chapterID - 1;
+            $chapter['id'] = (int)$chapterID - 1;                       // 章节列表指示
             $chapter['novel_id'] = $chapter_data['novel_id'];
             $chapter['content'] = $chapter_data['chapter_content'];
             $chapter['word'] = mb_strlen($chapter_data['chapter_content'], 'utf8');

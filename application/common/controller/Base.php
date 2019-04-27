@@ -59,6 +59,7 @@ class Base extends Controller {
     protected function fetch($template = '', $vars = [], $config = [], $renderContent = false) {
         $fetch=$this->view->fetch($template, $vars, $config, $renderContent);
         if(!in_array(strtolower($this->request->controller()."/".$this->request->action()),['comment/tree','comment/list'])){       // 请求的是 'comment/tree' 或 'comment/list'
+            echo '模式：' . $this->mold;
             if($this->mold=="web"){
                 $fetch.='<script src="/public/static/layer/layer.js"></script>';
             }else{
