@@ -357,7 +357,7 @@ CREATE TABLE IF NOT EXISTS `ky_novel` (
   `hits` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '浏览数量',
   `rating` char(10) NOT NULL DEFAULT '0' COMMENT '评分',
   `rating_count` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '评分人数',
-  `serialize` tinyint(2) DEFAULT '0' COMMENT '连载',
+  `serialize` tinyint(2) DEFAULT '0' COMMENT '连载、完结，默认连载，连载 + 最近一个月入库的为新书',
   `favorites` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '收藏',
   `position` tinyint(2) unsigned NOT NULL DEFAULT '0' COMMENT '推荐位',
   `template` varchar(100) DEFAULT '/novel.html' COMMENT '模板',

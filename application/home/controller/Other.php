@@ -14,10 +14,8 @@ namespace app\home\controller;
 use app\common\controller\Base;
 use think\facade\Cookie;
 
-class Other extends Base
-{
-    public function index()
-    {
+class Other extends Base {
+    public function index() {
     	Cookie::set('__forward__',$this->request->url());
        	$tpl=$this->request->param('tpl').".html";
        	return $this->fetch($this->home_tplpath.$tpl);

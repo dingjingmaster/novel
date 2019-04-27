@@ -59,8 +59,6 @@ class Lists extends Base {
 		if(!$tpl){
 			$tpl='lists.html';
 		}
-
-		var_dump($tag);
 		$this->assign(['cid'=>$info['id'],'pid'=>$info['pid'],'title'=>$info['title'],'icon'=>$info['icon'],'size'=>$size,'serialize'=>$serialize,'update'=>$update,'tag'=>$tag]);
 		return $this->fetch($this->home_tplpath.$tpl);
 	}
