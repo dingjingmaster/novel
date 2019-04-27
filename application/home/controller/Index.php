@@ -14,10 +14,13 @@ namespace app\home\controller;
 use app\common\controller\Base;
 use think\facade\Cookie;
 
-class Index extends Base
-{
-    public function index()
-    {
+/**
+ *  首页
+ *
+ *
+ */
+class Index extends Base {
+    public function index() {
     	Cookie::set('__forward__',$this->request->url());
     	$this->assign('pos',4);
         return $this->fetch($this->home_tplpath.'index.html');

@@ -191,7 +191,7 @@ class Api extends Model
 
 
     /**
-     *  修改书籍章节内容
+     *  获取书籍章节内容
      *
      *  输入 novelID + chapterIndex
      *

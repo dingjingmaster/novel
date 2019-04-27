@@ -16,7 +16,7 @@ use think\facade\Config;
 use think\facade\Env;
 use think\facade\Cache;
 
-class Base extends Controller{
+class Base extends Controller {
     protected $mold;
     protected $home_tplpath;
 
@@ -30,7 +30,7 @@ class Base extends Controller{
      *      home_tplpath：
      */
     protected function initialize(){
-        if(!Config::get('web.close')){
+        if(!Config::get('web.close')) {
             $this->error(Config::get('web.lose_tip'));
         }
         if(!defined('UID')){
@@ -56,10 +56,9 @@ class Base extends Controller{
      *  输入：
      *      template： 模版路径
      */
-    protected function fetch($template = '', $vars = [], $config = [], $renderContent = false)
-    {
+    protected function fetch($template = '', $vars = [], $config = [], $renderContent = false) {
         $fetch=$this->view->fetch($template, $vars, $config, $renderContent);
-        if(!in_array(strtolower($this->request->controller()."/".$this->request->action()),['comment/tree','comment/list'])){
+        if(!in_array(strtolower($this->request->controller()."/".$this->request->action()),['comment/tree','comment/list'])){       // 请求的是 'comment/tree' 或 'comment/list'
             if($this->mold=="web"){
                 $fetch.='<script src="/public/static/layer/layer.js"></script>';
             }else{

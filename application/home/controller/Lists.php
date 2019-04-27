@@ -14,7 +14,7 @@ namespace app\home\controller;
 use app\common\controller\Base;
 use think\facade\Cookie;
 
-class Lists extends Base{
+class Lists extends Base {
 
 	public function index(){
 		Cookie::set('__forward__',$this->request->url());
@@ -59,6 +59,8 @@ class Lists extends Base{
 		if(!$tpl){
 			$tpl='lists.html';
 		}
+
+		var_dump($tag);
 		$this->assign(['cid'=>$info['id'],'pid'=>$info['pid'],'title'=>$info['title'],'icon'=>$info['icon'],'size'=>$size,'serialize'=>$serialize,'update'=>$update,'tag'=>$tag]);
 		return $this->fetch($this->home_tplpath.$tpl);
 	}
