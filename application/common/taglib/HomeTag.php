@@ -44,8 +44,8 @@ class HomeTag extends TagLib{
     }
 
     public function tagSlider($tag, $content){
-        $limit    = empty($tag['limit']) ? '""' : $tag['limit'];
-        $empty   = isset($tag['empty']) ? $tag['empty'] : '';
+        $limit  = empty($tag['limit']) ? '""' : $tag['limit'];
+        $empty  = isset($tag['empty']) ? $tag['empty'] : '';
         $parse  = '<?php ';
         $parse .= '$__SLIDER__ = model(\'common/api\')->get_slider('.$limit.');?>';
         $parse .= '{volist name="__SLIDER__" id="'. $tag['id'] .'" empty="'.$empty.'"}';

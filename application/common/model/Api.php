@@ -54,7 +54,7 @@ class Api extends Model
 
     public function get_slider($limit){
 		$map = ['status' => 1];
-		$map['type'] = Request::isMobile()?'1':'0';
+//		$map['type'] = Request::isMobile()?'1':'0';
         $data=Db::name('slider')->where($map)->limit($limit)->order('sort')->select();
         if($data){
 			foreach ($data as $k=>$v){
