@@ -1,0 +1,5 @@
+@font-face{font-family:youyuan;src:url('/template/home/default_web/font/youyuan.ttf');}
+*{margin:0;padding:0;border:0;outline:0;font-family:youyuan,monospace;color:#424242;text-align:left;line-height:180%;letter-spacing:1.8px;font-size:14px;}
+a,a:hover,a:focus,a:checked,a:active{cursor:pointer;text-decoration:none;}
+ul {list-style:none;}
+ul>li {cursor:pointer;}
