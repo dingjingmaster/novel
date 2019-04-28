@@ -7,13 +7,59 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1, maximum-scale=1,user-scalable=no">
 	<meta name="keywords" content="{$web['meta_keywords']}">
 	<meta name="description" content="{$web['meta_description']}">
-	<link rel="stylesheet" href="/template/home/default_web/css/common.css"/>
-	<link rel="stylesheet" href="/template/home/default_web/css/index.css"/>
+	<link rel="stylesheet" href="{$home_tplpath}css/common.css"/>
+	<link rel="stylesheet" href="{$home_tplpath}css/index.css"/>
 	<title>{$web['meta_title']}</title>
 </head>
 <body>
 {include file="template/home/default_web/_part/header.html" /}
-<script type="text/javascript" src="/template/home/default_web/js/vue.min.js"></script>
-<script type="text/javascript" src="/template/home/default_web/js/index.js"></script>
+<!-- 主要内容 -->
+<div id="main">
+	<div class="banner">
+		<ul>
+			{nav id="vo" type="0"}
+			<li>
+				<a class="title" href="{$vo['url']}" target="_blank"><em>{$vo['title']}</em></a>
+				<p>
+					{nav id="v" cid="$vo['id']"}
+					<a href="{$v['url']}" target="_blank">{$v['title']}</a>
+					{/nav}
+				</p>
+			</li>
+			{/nav}
+		</ul>
+	</div>
+	<div class="banner-pic">
+		<div class="mod-banner">
+			<div class="banner-slide">
+				<div class="slideBox">
+					{slider id="vo"}
+					<a class="slider-film" href="{$vo['url']}" target="_blank" style="display: none;">
+						<img src="{$vo['pic']}"></a>
+					{/slider}
+				</div>
+				<div class="slide-point">
+					{slider id="vo"}
+					<li class="slide-point-Focus"></li>
+					{/slider}
+				</div>
+				<button class="prev" style="opacity: 1; display: none;"></button>
+				<button class="next" style="opacity: 1; display: none;"></button>
+			</div>
+		</div>
+	</div>
+	<div class="banner-info">
+		<h3>公告</h3>
+		<p>暂无信息</p>
+	</div>
+</div>
 </body>
+<script type="text/javascript" src="{$home_tplpath}js/vue.min.js"></script>
+<script type="text/javascript" src="{$home_tplpath}js/index.js"></script>
+<script type="text/javascript" src="{$home_tplpath}js/jquery.min.js"></script>
+<script type="text/javascript" src="{$home_tplpath}js/jquery.lazyload.min.js"></script>
+<script type="text/javascript" src="{$home_tplpath}js/jquery.SuperSlide.2.1.1.js"></script>
+<script type="text/javascript" src="{$home_tplpath}js/jquery.mouseDelay.min.js"></script>
+<script type="text/javascript" src="{$home_tplpath}js/global.js"></script>
+<script type="text/javascript" src="{$home_tplpath}js/slide.js"></script>
 </html>
