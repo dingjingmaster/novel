@@ -36,9 +36,8 @@
         <!-- 移动端 nav -->
         <div id="phone-nav" v-if="menuOpen">
             <ul>
-                <li>
-                    <form method="post">
-                        <input type="text" placeholder="请输入书名或作者名" required>
+                <li><form action="{:url('search/index')}" method="get">
+                        <input type="text" name="keyword" placeholder="请输入书名或作者名" required>
                         <button class="btn btn-search"></button>
                     </form>
                 </li>
