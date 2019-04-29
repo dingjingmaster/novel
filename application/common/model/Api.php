@@ -104,8 +104,8 @@ class Api extends Model
     		$map = $this->list_map($category,$pos);
     	}
 		if($newbook){
-			$map[] = ['serialize','=',0];
-			$map[] = ['create_time','>=',strtotime("-1 month")];
+			$map[] = ['serialize','=',1];
+			$map[] = ['create_time','>=',strtotime("-2 month")];
 		}
 		if($over){
 			$map[] = ['serialize','=',1];
