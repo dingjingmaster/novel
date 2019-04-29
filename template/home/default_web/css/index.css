@@ -29,17 +29,17 @@
 .open3{-o-transform: rotate(45deg) translate(-6px, -7px);-ms-transform: rotate(45deg) translate(-6px, -7px);-moz-transform: rotate(45deg) translate(-6px, -7px);-webkit-transform: rotate(45deg) translate(-6px, -7px);transform: rotate(45deg) translate(-6px, -7px);}
 #main{width:1080px;margin:76px auto 0 auto;zoom:1;overflow:hidden;}
 #main>div{width:100%;zoom:1;overflow:hidden;}
-.banner{width:200px;height:360px;float:left;zoom:1;overflow:hidden;position:relative;display:block;}
+.banner{width:200px;height:300px;float:left;zoom:1;overflow:hidden;position:relative;display:block;}
 .banner>ul{width:200px;zoom:1;overflow:hidden;display:block;}
 .banner>ul>li{width:200px;padding:0 6px;float:left;}
 .banner>ul>li>p{padding:0 0 0 16px;}
 .banner>ul>li p a{width:90px;height:30px;float:left;color:#666;display:list-item;text-align:-webkit-match-parent;}
 .banner>ul>li>p>a:hover{color:#ec2147;position:relative;left:1px;top:1px}
-.banner-pic{width:720px;height:260px;float:left;zoom:1;overflow:hidden;display:block;}
-.mod-banner .banner-slide{height:260px;position:relative;display:block;}
+.banner-pic{width:880px;height:300px;float:left;zoom:1;overflow:hidden;display:block;}
+.mod-banner .banner-slide{height:300px;position:relative;display:block;}
 .mod-banner .banner-slide .slide-point-Focus{width:8px;height:8px;background:#ccc;border-radius:50%;float:left;margin-right:10px;cursor:pointer;display:block;}
 .mod-banner .banner-slide .on{background:#ff4c2f;display:block;}
-.mod-banner .banner-slide .slideBox{height:260px;display:block;}
+.mod-banner .banner-slide .slideBox{height:300px;display:block;}
 .mod-banner .banner-slide .slider-film {top:0;left:0;position:absolute;text-align:center;background:center no-repeat;font-size:0}
 .mod-banner .banner-slide .slider-film img {width:100%;height:100%;display:inline-block;}
 .mod-banner .banner-slide .slide-point {position:absolute;left:48%;bottom:15px;display:block;}
@@ -57,9 +57,6 @@
 .mod-banner .next {right:15px}
 .mod-banner .next:after {right:9px;transform:rotate(45deg)}
 .mod-banner .next:before {right:9px;transform:rotate(-45deg)}
-.banner-info{width:160px;float:left;display:block;}
-.banner-info>h3{margin-top:26px;text-align:center;}
-.banner-info>p{padding-left:6px;}
 .good-book>span{height:48px;margin-left:26px;font-size:16px;line-height:48px;border-bottom:1px solid #f2f2f2;display:block;}
 .good-book>div{width:100%;margin:10px 26px 0;zoom:1;border-bottom:1px solid #f2f2f2;overflow:hidden;}
 .good-book>div>ul{padding:3px 0;zoom:1;overflow:hidden;}
