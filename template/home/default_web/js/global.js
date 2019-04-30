@@ -3,6 +3,7 @@ $(function(){
 
 	$("#human").click(function(e) {
 		$('.tipshover').show();
+		$('#human').toggleClass('on');
     	e.stopPropagation();
 	});
 

@@ -13,7 +13,121 @@
 </head>
 <body>
 {include file="template/home/default_web/_part/header.html" /}
+<div id="main">
+    <div>
+        <div class="l-chose">
+            <div>
+                <span>频道</span>
+                <ul>
+                    {filter id="type" name="type" type="0"}
+                    <li {eq name="type['current']" value="1"}class="on"{/eq}><a href="{$type['url']}">{$type['title']}</a></li>
+                    {/filter}
+                </ul>
+            </div>
+            {notempty name="cid"}
+            <div>
+                <span>分类</span>
+                <ul>
+                    {filter id="type" name="type" cid="$cid"}
+                    <li {eq name="type['current']" value="1"}class="on"{/eq}><a href="{$type['url']}">{$type['title']}</a></li>
+                    {/filter}
+                </ul>
+            </div>
+            {/notempty}
+            <div>
+                <span>字数</span>
+                <ul>
+                    {filter id="size" name="size"}
+                    <li {eq name="size['current']" value="1"}class="on"{/eq}>
+                    <a href="{$size['url']}">{$size['title']}</a>
+                    </li>
+                    {/filter}
+                </ul>
+            </div>
+            <div>
+                <span>状态</span>
+                <ul>
+                    {filter id="serialize" name="serialize"}
+                    <li {eq name="serialize['current']" value="1"}class="on"{/eq}>
+                    <a href="{$serialize['url']}">{$serialize['title']}</a>
+                    </li>
+                    {/filter}
+                </ul>
+            </div>
+            <div>
+                <span>更新时间</span>
+                <ul>
+                    {filter id="update" name="update"}
+                    <li {eq name="update['current']" value="1"}class="on"{/eq}>
+                    <a href="{$update['url']}">{$update['title']}</a>
+                    </li>
+                    {/filter}
+                </ul>
+            </div>
+        </div>
 
+        <div class="l-content">
+            <div class="l-menu">
+                <ul>
+                    <li>
+                        <a href="javascript:;" class="downj" id="human">总人气</a>
+                        <ul class="tipshover" style="display: none;">
+                            <li>
+                                <a href="{:url('',['id'=>$Request.param.id,'size'=>$Request.param.size,'serialize'=>$Request.param.serialize,'update'=>$Request.param.update,'order'=>'hits desc'])}" {eq name='Request.param.order' value='hits+desc'}class="cur"{/eq}>总人气</a>
+                            </li>
+                            <li>
+                                <a href="{:url('',['id'=>$Request.param.id,'size'=>$Request.param.size,'serialize'=>$Request.param.serialize,'update'=>$Request.param.update,'order'=>'hits_week desc'])}" {eq name='Request.param.order' value='hits_week+desc'}class="cur"{/eq}>周人气</a>
+                            </li>
+                            <li>
+                                <a href="{:url('',['id'=>$Request.param.id,'size'=>$Request.param.size,'serialize'=>$Request.param.serialize,'update'=>$Request.param.update,'order'=>'hits_month desc'])}" {eq name='Request.param.order' value='hits_month+desc'}class="cur"{/eq}>月人气</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="orderOther {if $Request.param.order=='id+desc' or $Request.param.order==''}cur{/if}">
+                        <a href="{:url('',['id'=>$Request.param.id,'size'=>$Request.param.size,'serialize'=>$Request.param.serialize,'update'=>$Request.param.update,'order'=>'id desc'])}" class="r-cream-btn">最新添加</a>
+                    </li>
+                    <li class="orderOther {eq name='Request.param.order' value='update_time+desc'}cur{/eq}">
+                        <a href="{:url('',['id'=>$Request.param.id,'size'=>$Request.param.size,'serialize'=>$Request.param.serialize,'update'=>$Request.param.update,'order'=>'update_time desc'])}" class="r-cream-btn">更新时间</a>
+                    </li>
+                    <li class="orderOther {eq name='Request.param.order' value='recommend+desc'}cur{/eq}">
+                        <a href="{:url('',['id'=>$Request.param.id,'size'=>$Request.param.size,'serialize'=>$Request.param.serialize,'update'=>$Request.param.update,'order'=>'recommend desc'])}" class="r-all-btn">推荐票</a>
+                    </li>
+                    <li class="orderOther {eq name='Request.param.order' value='word+desc'}cur{/eq}">
+                        <a href="{:url('',['id'=>$Request.param.id,'size'=>$Request.param.size,'serialize'=>$Request.param.serialize,'update'=>$Request.param.update,'order'=>'word desc'])}" class="r-all-btn">字数</a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="l-rank">
+                <div>
+                    {novel id="novel" limit="20" order="id desc" page="1"}
+                    <dl>
+                        <dt>
+                            <a href="{$novel['url']}" target="_blank"><img src="" class="lazyimg" data-original="{$novel['pic']}"></a>
+                        </dt>
+                        <dd>
+                            <a href="{$novel['url']}" target="_blank">{$novel['title']}</a>
+                            <p class="l-tag">
+                                <a href="{$novel['author_url']}" target="_blank">{$novel['author']}</a> | <a href="{$novel['curl']}" target="_blank">{$novel['ctitle']}</a> | {$novel['serialize_text']}
+                            </p>
+                            <p class="l-desc">{$novel['content']}</p>
+                            <p class="l-status"><span href="javascript:;" target="_blank">{$novel['word_million']} 万字 | </span><span>{$novel['time']|time_format}更新</span></p>
+                        </dd>
+                    </dl>
+                    {if $i%2 == 0 }
+                    <div></div>
+                    {/if}
+                    {/novel}
+                </div>
+            </div>
+
+            <div class="l-pages_bottom" style="display:block;">
+                {novel_page /}
+            </div>
+        </div>
+    </div>
+</div>
+{include file="template/home/default_web/_part/footer.html" /}
 <script type="text/javascript" src="{$home_tplpath}js/vue.min.js"></script>
 <script type="text/javascript" src="{$home_tplpath}js/index.js"></script>
 <script type="text/javascript" src="{$home_tplpath}js/jquery.min.js"></script>

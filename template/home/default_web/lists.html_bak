@@ -83,6 +83,7 @@
 		        							<a href="{:url('',['id'=>$Request.param.id,'size'=>$Request.param.size,'serialize'=>$Request.param.serialize,'update'=>$Request.param.update,'order'=>'hits_month desc'])}" {eq name='Request.param.order' value='hits_month+desc'}class="cur"{/eq}>月人气</a>
 		        						</div>
 		        					</li>
+
 		        					<li class="orderOther {if $Request.param.order=='id+desc' or $Request.param.order==''}cur{/if}">
 		        						<a href="{:url('',['id'=>$Request.param.id,'size'=>$Request.param.size,'serialize'=>$Request.param.serialize,'update'=>$Request.param.update,'order'=>'id desc'])}" class="r-cream-btn">最新添加</a>
 		        					</li>

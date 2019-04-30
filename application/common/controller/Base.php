@@ -92,6 +92,5 @@ class Base extends Controller {
         }else{
             return $fetch;
         }
-         
     }
 }

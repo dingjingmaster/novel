@@ -404,7 +404,9 @@ class Api extends Model
 
 	public function get_category($cid,$field=''){
 		$data=Cache::remember('category',function(){
-			return Db::name("category")->where('status',1)->column('*','id');
+			return Db::name("category")
+                ->where('status',1)
+                ->column('*','id');
 		});
 		if($field){
 			return isset($data[$cid][$field])?$data[$cid][$field]:false;
