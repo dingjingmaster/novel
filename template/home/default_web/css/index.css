@@ -77,8 +77,8 @@
 .no-show{display:inline-block;}
 .category,.name,.chapter,.author,.update,.update>div{zoom:1;overflow:hidden;}
 .category{width:80px;text-align:left;}
-.name{width:240px;text-align:left;}
-.chapter{width:420px;text-align:left;}
+.name{width:240px;text-align:left;zoom:1;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;}
+.chapter{width:420px;text-align:left;zoom:1;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;}
 .author{width:200px;text-align:left;}
 .update,.update>div{width:100px;text-align:right;}
 @media only screen and (max-width:750px){
@@ -99,7 +99,8 @@
     .new-book-1>div>dl{width:calc(100% - 3px);margin:0 3px 6px 3px;}
     .new-book-2{display:none;}
     .rank-box{display:none;}
-    .last-update,.last-update>div,.last-update>div>table{width:100%;margin:0;}
+    .last-update,.last-update>div>table{width:100%;margin:0;}
+    .last-update>div{width:calc(100% - 6px);margin:0 3px;}
     .no-show{display:none;}
     .name{width:160px;}
     .chapter{width:calc(100% - 160px);}

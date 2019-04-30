@@ -39,6 +39,6 @@ ul>li{cursor:pointer;}
 .open3{-o-transform: rotate(45deg) translate(-6px, -7px);-ms-transform: rotate(45deg) translate(-6px, -7px);-moz-transform: rotate(45deg) translate(-6px, -7px);-webkit-transform: rotate(45deg) translate(-6px, -7px);transform: rotate(45deg) translate(-6px, -7px);}
 .footer{width:100%;margin-top:16px;padding:16px 0;zoom:1;overflow:hidden;background-color:#3a3a3a;}
 .footer>div{width:1080px;margin:0 auto;}
-.footer>div>p,.footer>div>p>a{text-align:center;color:#fff;}
+.footer>div>p,.footer>div>p>a{text-align:center;font-size:4px;color:#fff;}
 @media only screen and (max-width:750px){#header{width:100%;}#header>div{min-width:260px;width:100%;padding:0;}#i-nav{display:none;}#phone-nav,.phone-menu{display:block;}.footer>div{width:100%;margin:0;}}
 /* head - end */
