@@ -70,7 +70,6 @@ $(function(){
 	        }
 	    });
 	}
-	
     var topReturn = function() {
 	    $("body").append('<div class="to_top"></div>');
 	    $("body").find(".to_top").addClass("ui-toTop");
@@ -88,6 +87,5 @@ $(function(){
 	        $(document).scrollTop(0)
 	    })
 	};
-
 	topReturn();
 });

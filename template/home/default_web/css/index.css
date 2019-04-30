@@ -81,27 +81,4 @@
 .chapter{width:420px;text-align:left;zoom:1;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;}
 .author{width:200px;text-align:left;}
 .update,.update>div{width:100px;text-align:right;}
-@media only screen and (max-width:750px){
-    #main{min-width:260px;width:100%;}
-    .banner{background-color:#0e6ecd;display:none;}
-    .banner-pic{width:100%;height:40vw;}
-    .mod-banner .banner-slide {width:100%;height:40vw;}
-    .mod-banner .banner-slide .slideBox {width:100%;height:10vw;}
-    .mod-banner .banner-slide .slide-point {left:40%;height:5vw;}
-    .good-book{margin:0;}
-    .good-book>span,.new-book-1>span{margin-left:3px;}
-    .good-book>div{margin:6px 0;}
-    .good-book>div>ul{width:calc(100% - 5px);}
-    .good-book>div>ul>dl{width:calc(100% - 3px);margin:0 3px 6px 3px;}
-    .good-book>div>ul>dl>dd{width:calc(100% - 90px);height:115px;display:block;}
-    .good-book-desc{width:100%;}
-    .new-book-1{width:100%;margin:0;}
-    .new-book-1>div>dl{width:calc(100% - 3px);margin:0 3px 6px 3px;}
-    .new-book-2{display:none;}
-    .rank-box{display:none;}
-    .last-update,.last-update>div>table{width:100%;margin:0;}
-    .last-update>div{width:calc(100% - 6px);margin:0 3px;}
-    .no-show{display:none;}
-    .name{width:160px;}
-    .chapter{width:calc(100% - 160px);}
-}
+@media only screen and (max-width:750px){#main{min-width:260px;width:100%;}.banner{background-color:#0e6ecd;display:none;}.banner-pic{width:100%;height:40vw;}.mod-banner .banner-slide {width:100%;height:40vw;}.mod-banner .banner-slide .slideBox {width:100%;height:10vw;}.mod-banner .banner-slide .slide-point {left:40%;height:5vw;}.good-book{margin:0;}.good-book>span,.new-book-1>span{margin-left:3px;}.good-book>div{margin:6px 0;}.good-book>div>ul{width:calc(100% - 5px);}.good-book>div>ul>dl{width:calc(100% - 3px);margin:0 3px 6px 3px;}.good-book>div>ul>dl>dd{width:calc(100% - 90px);height:115px;display:block;}.good-book-desc{width:100%;}.new-book-1{width:100%;margin:0;}.new-book-1>div>dl{width:calc(100% - 3px);margin:0 3px 6px 3px;}.new-book-2{display:none;}.rank-box{display:none;}.last-update,.last-update>div>table{width:100%;margin:0;}.last-update>div{width:calc(100% - 6px);margin:0 3px;}.no-show{display:none;}.name{width:160px;}.chapter{width:calc(100% - 160px);}}

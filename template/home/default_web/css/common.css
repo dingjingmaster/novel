@@ -1,3 +1,4 @@
+@charset "UTF-8";
 @font-face{font-family:youyuan;src:url('/template/home/default_web/fonts/youyuan.ttf');}
 *{margin:0;padding:0;border:0;outline:0;font-family:youyuan,monospace;color:#424242;text-align:left;line-height:180%;letter-spacing:1.8px;font-size:14px;}
 a,a:hover,a:focus,a:checked,a:active{cursor:pointer;text-decoration:none;}
@@ -40,5 +41,7 @@ ul>li{cursor:pointer;}
 .footer{width:100%;margin-top:16px;padding:16px 0;zoom:1;overflow:hidden;background-color:#3a3a3a;}
 .footer>div{width:1080px;margin:0 auto;}
 .footer>div>p,.footer>div>p>a{text-align:center;font-size:4px;color:#fff;}
-@media only screen and (max-width:750px){#header{width:100%;}#header>div{min-width:260px;width:100%;padding:0;}#i-nav{display:none;}#phone-nav,.phone-menu{display:block;}.footer>div{width:100%;margin:0;}}
+.to_top{width:40px;height:40px;left:50%;margin-left:560px;bottom:130px;opacity:0.8;position:fixed;border:1px solid #d9d9d9;cursor:pointer;display:none;background:url(/template/home/default_web/images/backtopicon.png) no-repeat #fff;}
+.to_top_on{background:url(/template/home/default_web/images/backtopicon-on.png) no-repeat #000;}
+@media only screen and (max-width:750px){#header{width:100%;}#header>div{min-width:260px;width:100%;padding:0;}#i-nav{display:none;}#phone-nav,.phone-menu{display:block;}.footer>div{width:100%;margin:0;}.to_top{margin:0;left:calc(100% - 50px);}}
 /* head - end */
