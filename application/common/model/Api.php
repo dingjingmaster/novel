@@ -52,6 +52,7 @@ class Api extends Model
 		}
     }
 
+    // 首页幻灯片
     public function get_slider($limit){
 		$map = ['status' => 1];
 //		$map['type'] = Request::isMobile()?'1':'0';
@@ -118,7 +119,8 @@ class Api extends Model
 		}
         $novel=Db::name('novel')->where($map)->whereTime('update_time',$time)->order($order);
         if($page){
-        	$simple = Request::isMobile()?true:false;
+//        	$simple = Request::isMobile()?true:false;
+        	$simple = false;    // 所有书籍的翻页
         	$data=$novel->paginate($limit,$simple);
     	}else{
     		$data=$novel->limit($limit)->select();
