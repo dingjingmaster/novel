@@ -79,23 +79,20 @@
 							</div>
 							<div>
 								<ul>
+									{chapter id="chapter"}
 									<li>
-										{chapter id="chapter"}
 										<a target="_blank" href="{$chapter['url']}">
 											<span class="chapter_name">{$chapter['title']}</span>
 											<span class="chapter_date">{:time_format($chapter_time,'m-d')}</span>
 											{eq name="chapter['new']" value="1"}<span class="newChapter"></span>{/eq}
 										</a>
-										{if $i%2 == 0 }
 									</li>
-									<li>{/if} {/chapter}</li>
+									{/chapter}
 								</ul>
 							</div>
 						</div>
-
 					</div>
 				</div>
-
 				<div class="n-btn-rec">
 					<div class="n-same-rec">
 						<h3>同类推荐</h3>
@@ -117,14 +114,7 @@
 			</div>
 		</div>
 	</div>
-
-
-
-
-
-
-
-<!--	{include file="template/home/default_web/_part/footer.html" /}-->
+	{include file="template/home/default_web/_part/footer.html" /}
 	<script type="text/javascript" src="{$home_tplpath}js/vue.min.js"></script>
 	<script type="text/javascript" src="{$home_tplpath}js/index.js"></script>
 	<script type="text/javascript" src="{$home_tplpath}js/jquery.min.js"></script>
