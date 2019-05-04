@@ -479,6 +479,7 @@ $(function(){
         },
         jumpChapter: function(chapterId, isShowLoading, resolve, reject) {
             var self = this;
+            chapterId += 1;
             if (!history.replaceState) {
                 location.href = data.chapterUrl.replace("chapterId", chapterId);
             } else {
