@@ -64,6 +64,7 @@ class Chapter extends Base {
         $chapter['nextVip']=0;
         $info=model('common/api')->novel_detail($id);
         $info['chapter']=$chapter;
+
         //阅读记录
         model("user/recentread")->add($chapter['novel_id'],$id,$chapter['id']);
         return json(['code'=>1,'data'=>$info]);

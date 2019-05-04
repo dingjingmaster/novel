@@ -208,13 +208,13 @@ class Api extends Model
     	if($chapter_data){
     	    // 获取本章信息
             $chapter['title'] = $chapter_data['chapter_name'];
-            $chapter['id'] = (int)$chapterID - 1;                       // 章节列表指示
-            $chapter['novel_id'] = $chapter_data['novel_id'];
             $chapter['content'] = $chapter_data['chapter_content'];
             $chapter['word'] = mb_strlen($chapter_data['chapter_content'], 'utf8');
-            $chapter['source_id'] = $chapter_data['id'];
+            $chapter['source_id'] = $novelID;
             $chapter['prev'] = null;
             $chapter['next'] = null;
+            $chapter['novel_id'] = $novelID;
+            $chapter['id'] = (int)$chapterID - 1;                       // 章节列表指示
             $chapter['time'] = time_format($chapter_data['update']);
 
             // 上一章 + 下一章
@@ -234,8 +234,8 @@ class Api extends Model
                     $chapter['next']['url'] = url('home/chapter/index',['id'=>$novelID,'key'=>$next]);
                 }
             }
-            return $chapter;
 	    }
+        return $chapter;
     }
 
 	public function get_link($limit){

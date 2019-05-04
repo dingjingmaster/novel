@@ -521,11 +521,11 @@ $(function(){
                 return;
             }
             //更新阅读记录
-            // $.get("/user/Chapter/UpdRead", {
-            //     bookId: data.book.bookId,
-            //     chapterId: data.chapter.chapterId,
-            //     chapterName: data.chapter.chapterName
-            // });
+            $.get("/user/Chapter/UpdRead", {
+                bookId: data.book.bookId,
+                chapterId: data.chapter.chapterId,
+                chapterName: data.chapter.chapterName
+            });
         },
         getChapter: function(chapterId, isShowLoading, resolve, reject) {
             var self = this;
@@ -551,7 +551,7 @@ $(function(){
                 if (isShowLoading) {
                     layer_index=layer.open({type: 2,content: '加载中'});
                 }
-                $.getJSON("/index.php?s=/home/chapter/info", {id: book.chapter.source_id , key: chapterId}, function(result) {
+                $.getJSON("/index.php?s=/home/chapter/info", {id: book.Info.Id , key: chapterId}, function(result) {
                     if (isShowLoading) {
                         layer.close(layer_index);
                     }
