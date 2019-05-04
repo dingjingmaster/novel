@@ -1,16 +1,13 @@
 <!DOCTYPE html>
-<html lang="zh-cn">
-<head>
-	<meta charset="UTF-8">
-	<meta http-equiv="Content-Language" content="zh-cn">
-	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
-	<meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
-	<meta name="keywords" content="{$list_keywords}">
-	<meta name="description" content="{$list_description}">
-	<link rel="stylesheet" type="text/css" href="{$home_tplpath}css/common.css"/>
-	<link rel="stylesheet" type="text/css" href="{$home_tplpath}css/list.css" />
-	<title>{$list_title}</title>
-	</head>
+<html>
+	<head>
+	    <meta charset="utf-8">
+	    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+	    <meta name="keywords" content="{$web['meta_keywords']}">
+	    <meta name="description" content="{$web['meta_description']}">
+	    <title>{$title}-{$ctitle}-{$web['meta_title']}</title>
+	    <link rel="stylesheet" href="{$home_tplpath}css/style.css" type="text/css"/>
+    </head>
 	<body>
 		{include file="template/home/default_web/header.html" /}
 		<div class="path ">
