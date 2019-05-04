@@ -13,12 +13,6 @@
 <body>
 	{include file="template/home/default_web/_part/header.html" /}
 
-
-
-
-
-
-
 	<div id="main">
 		<div>
 			<div class="path ">
@@ -29,39 +23,25 @@
 				{/if}
 				{/crumbs}
 			</div>
-
 			<!-- 详情 -->
 			<div class="n-info">
 				<div>
 					<div><img src="{$pic}" alt=""></div>
-
-
 					<div class="n-info-i">
 						<div>
-							<span class="n-info-name">{$title}</span>
-							<a href="{$author_url}" class="n-info-author" target="_blank">{$author}</a>
-							<span>著</span>
+							<span class="n-info-name">{$title}</span><a href="{$author_url}" class="n-info-author" target="_blank">{$author}</a><span>&nbsp;著</span>
 						</div>
-
 						<div class="n-info-tags">
-							<a href="{:url('home/lists/lists',['serialize'=>$serialize])}">
-								<span class="isfinish">{$serialize_text}</span>
-							</a>
-							<a href="{$curl}">
-								<span class="">{$ctitle}</span>
-							</a>
+							<a href="{:url('home/lists/lists',['serialize'=>$serialize])}"><span class="isfinish">{$serialize_text}</span></a>
+							<a href="{$curl}"><span class="">{$ctitle}</span></a>
 						</div>
-
-
 						<div class="n-info-hits"> <i></i>
 							<span>{$word_million}万 字</span> <i></i>
 							<span>总点击 {$hits}</span>
 							<i></i>
 							<span>推荐票 {$recommend}</span>
 						</div>
-
 						<p class="n-info-text">{$content|raw|strip_tags}</p>
-
 						<div class="n-info-btns">
 							<a href="{$reader_url}" class="free on ui_bg_bdcolor" target="_blank">马上阅读</a>
 							<a href="javascript:;" {$add_bookshelf} class="addshelf">加入书架</a>
@@ -69,14 +49,72 @@
 					</div>
 				</div>
 			</div>
+			<!-- 按钮 -->
+			<div class="n-content">
+				<div class="n-btn-info" id="content-tab">
+					<div class="n-btn-title">
+						<div class="j-content-tab">
+							<a href="#brief"><span class="on">作品简介</span></a>
+							<a href="#catalog"><span>目录({$chapter_count}章)</span></a>
+						</div>
+						<a href="#comment-tab" class="n-btn-t-c">书友评论</a>
+					</div>
 
+					<div class="n-btn-content j-content-main">
+						<div class="summary"><p>{$content}</p></div>
+						<div class="new-chapter">
+							<div>
+								<span>最新章节&nbsp;:&nbsp;&nbsp;<a target="_blank" href="{$chapter_url}">{$chapter_title}</a></span>
+								<span>更新时间&nbsp;:&nbsp;{:time_format($chapter_time,'Y-m-d H:i',1)}</span>
+							</div>
+							<p><a target="_blank" href="{$chapter_url}">{$chapter_content|raw|strip_tags|mb_substr=0,300}</a></p>
+						</div>
+						<div class="reader_comments" id="comment-tab">
+							{comment size="12" /}
+						</div>
 
+						<div class="n-btn-mulu" style="display:none;">
+							<div class="cate-tit">
+								<h2>作品章节</h2>
+							</div>
+							<div>
+								<ul>
+									<li>
+										{chapter id="chapter"}
+										<a target="_blank" href="{$chapter['url']}">
+											<span class="chapter_name">{$chapter['title']}</span>
+											<span class="chapter_date">{:time_format($chapter_time,'m-d')}</span>
+											{eq name="chapter['new']" value="1"}<span class="newChapter"></span>{/eq}
+										</a>
+										{if $i%2 == 0 }
+									</li>
+									<li>{/if} {/chapter}</li>
+								</ul>
+							</div>
+						</div>
 
+					</div>
+				</div>
 
+				<div class="n-btn-rec">
+					<div class="n-same-rec">
+						<h3>同类推荐</h3>
+						<ul class="rec-content">
+							{novel id="novel" cid="$cid" limit="5" order="hits_week desc"}
+							<li>
+								<a href="{$novel['url']}" target="_blank"><img data-original="{$novel['pic']}" alt="" class="lazyimg" src=""></a>
+								<div>
+									<a class="rec-name" href="{$novel['url']}" target="_blank">{$novel['title']}</a>
+									<p class="rec-desc">{$novel['content']}</p>
+									<p class="rec-author"><a href="{$novel['author_url']}" target="_blank">作者：{$novel['author']}</a></p>
+								</div>
+							</li>
+							{/novel}
+						</ul>
+					</div>
+				</div>
 
-
-
-
+			</div>
 		</div>
 	</div>
 

@@ -21,12 +21,19 @@ $(function(){
 		$('.j-content-tab a span').removeClass('on');
 		$(this).addClass('on');
 		$('.j-content-main').children("div").hide();
-		$('.j-content-main').children("div").eq(index).show();
-		if(index==1){
-			$('.header').width(1200);
-		}else{
-			$('.header').width(950);
+		if(index === 0) {
+			$('.summary').show();
+			$('.new-chapter').show();
+			$('.reader_comments').show();
+		}else if(index === 1){
+			$('.n-btn-mulu').show();
 		}
+		// $('.j-content-main').children("div").eq(index).show();
+		// if(index == 1){
+		// 	$('.header').width(1200);
+		// }else{
+		// 	$('.header').width(950);
+		// }
 	});
 
 	$(".comment").click(function(event) {
