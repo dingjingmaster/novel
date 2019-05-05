@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+    <url>
+        <loc>https://enjoyread.top</loc>
+        <lastmod>2019-05-01</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>1</priority>
+    </url>
     {volist name="sitemap" id="s"}
     <url>
         <loc>https://enjoyread.top/home/novel/index/id/{$s['id']}.html</loc>
