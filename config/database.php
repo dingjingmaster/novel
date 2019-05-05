@@ -15,11 +15,11 @@ return [
     // 服务器地址
     'hostname'        => '127.0.0.1',
     // 数据库名
-    'database'        => 'novel',
+    'database'        => 'u304044797_novel',
     // 用户名
-    'username'        => 'root',
+    'username'        => 'u304044797_novel',
     // 密码
-    'password'        => 'root',
+    'password'        => 'dingjing1009.',
     // 端口
     'hostport'        => '3306',
     // 连接dsn
@@ -57,7 +57,7 @@ return [
     // Query类
     'query'           => '\\think\\db\\Query',
     // 是否需要断线重连
-    'break_reconnect' => false,
+    'break_reconnect' => true,
     // 断线标识字符串
     'break_match_str' => [],
 ];
