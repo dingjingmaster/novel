@@ -226,7 +226,7 @@ a.downj:after{content:'';font-size:0;line-height:0;border-width:7px 7px 0;border
 .n-btn-rec{width:228px;float:left;zoom:1;overflow:hidden;}
 .n-same-rec{margin-top:10px;background:#fff;padding-left:16px;padding-bottom:1px;margin-bottom:20px;}
 .n-same-rec>h3{font-weight:500;padding-bottom:9px;}
-.n-same-gg{width:200px;margin-top:10px;padding-left:16px;}
+.n-same-gg{width:200px;margin-top:10px;padding-left:16px;zoom:1;overflow:hidden;}
 .rec-content>li{margin:12px 0;zoom:1;overflow:hidden;}
 .rec-content>li>a>img{width:76px;height:128px;float:left;}
 .rec-content>li>div{width:calc(100% - 80px);margin-top:9px;float:left;}
