@@ -6,12 +6,12 @@
 	    <meta name="keywords" content="{$list_keywords}">
 	    <meta name="description" content="{$list_description}">
 	    <title>{$list_title}</title>
-	    <link rel="stylesheet" href="{$home_tplpath}css/style.css" type="text/css"/>
-
+		<link rel="stylesheet" href="{$home_tplpath}css/common.css" type="text/css"/>
+		<link rel="stylesheet" href="{$home_tplpath}css/style.css" type="text/css"/>
 		{include file="template/home/default_web/_part/common.html" /}
     </head>
 	<body>
-		{include file="template/home/default_web/header.html" /}
+		{include file="template/home/default_web/_part/header.html" /}
 		<div class="body-bg">
 		    <div class="wrap">
 		        <div class="containerbox">
@@ -242,8 +242,10 @@
 		    </div>
 		</div>
 		<div class="block20"></div>
-		{include file="template/home/default_web/footer.html" /}
+		{include file="template/home/default_web/_part/footer.html" /}
 	</body>
+	<script type="text/javascript" src="{$home_tplpath}js/vue.min.js"></script>
+	<script type="text/javascript" src="{$home_tplpath}js/index.js"></script>
 	<script type="text/javascript" src="{$home_tplpath}js/jquery.min.js"></script>
 	<script type="text/javascript" src="{$home_tplpath}js/jquery.lazyload.min.js"></script>
 	<script type="text/javascript" src="{$home_tplpath}js/jquery.mouseDelay.min.js"></script>
