@@ -86,6 +86,14 @@ class Api extends Model
 		}
     }
 
+    public function get_novel_sitemap(){
+        $novel=Db::name('novel')
+                ->field('id,update_time')
+                ->where(['status'=>1])
+                ->select();
+        return $novel;
+    }
+
     public function get_novel($category, $order, $limit, $pos, $time, $newbook, $over, $author, $page, $id=null){
     	$category=$this->get_id($category);
     	if($page){
@@ -462,11 +470,6 @@ class Api extends Model
                         $data['chapter_word'] = mb_strlen($chapter_data['chapter_content'], 'utf8');
                     }
 
-                    // $visit = strtolower(Request::module()."/".Request::controller()."/".Request::action());
-					// $allowUrl = ['home/novel/index'];
-                    // if(in_array($visit,$allowUrl)){
-                    //}
-
 				}else{
 					$data['chapter_id'] = "";
 					$data['chapter_title'] = "";
@@ -523,7 +526,8 @@ class Api extends Model
      *  $id： 小说ID
 	 */
 	public function novel_reader_url($id){
-		$chapter=Db::name('novel_chapter')->field('novel_id,index')
+		$chapter=Db::name('novel_chapter')
+                    ->field('novel_id,index')
                     ->where(['novel_id'=>$id,'status'=>1])
                     ->order('index')
                     ->find();

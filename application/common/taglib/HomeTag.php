@@ -109,8 +109,6 @@ class HomeTag extends TagLib{
         }else{
             $parse = '{$__NOVEL__|raw}';
         }
-
-        var_dump($parse);
         return $parse;
     }
 
