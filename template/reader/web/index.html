@@ -7,6 +7,7 @@
 	    <meta name="description" content="{$web['meta_description']}">
 	    <title>{$chapter['title']}_{$title}-{$web['meta_title']}</title>
 	    <link rel="stylesheet" href="{$reader_tplpath}css/style.css" type="text/css"/>
+		{include file="template/home/default_web/_part/common.html" /}
     </head>
 	<body class="theme-{$reader_config[0]|default='0'} {switch reader_config[4] }{case 0} w640{/case}{case 1} w800{/case}{case 2} w900{/case}{case 3} w1280{/case}{/switch}" data-bid="{$url}">
 		<div class="wrap">
