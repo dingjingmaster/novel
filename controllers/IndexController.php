@@ -1,13 +1,15 @@
 <?php
 namespace app\controllers;
-use yii\web\Controller;
+use app\controllers\base\BaseController;
 
-
-class IndexController extends Controller
+class IndexController extends BaseController
 {
     public $layout = 'main';
     public function actionIndex()
     {
-        return $this->render('index');
+
+        return $this->render('//site/index', [
+            'a' => 'ddasdadadad',
+        ]);
     }
 }
