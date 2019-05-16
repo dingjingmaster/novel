@@ -7,9 +7,10 @@ class IndexController extends BaseController
     public $layout = 'main';
     public function actionIndex()
     {
+        $userLogin = $this->hasLogin();
 
         return $this->render('//site/index', [
-            'a' => 'ddasdadadad',
+            'userLogin' => $userLogin,
         ]);
     }
 }

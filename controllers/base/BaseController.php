@@ -11,11 +11,13 @@ class BaseController extends Controller
 
     protected function hasLogin()
     {
-
-    }
-
-    protected function loginUserName()
-    {
-
+        return [
+            'hasLogin'          => false,
+            'userName'          => '',
+            'userInfoURL'       => '',
+            'logoutURL'         => '',
+            'loginURL'          => '',
+            'registerURL'       => '',
+        ];
     }
 }

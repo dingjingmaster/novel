@@ -10,15 +10,17 @@
         </div>
         <div id="i-nav">
 <!--            {notempty name="user"}-->
+            <?php if(true == $userLogin['hasLogin']){ ?>
             <span>
                 <!-- {:url('user/index/index')} -->
-                <a href="/">{$user['username']}</a> |
-                <a href="/" class="exit">退出</a>
+                <a href="<?= $userLogin['userInfoURL'] ?>"><?= $userLogin['userName'] ?></a> |
+                <a href="<?= $userLogin['logoutURL'] ?>" class="exit">退出</a>
             </span>
+            <?php }else{ ?>
 <!--            {else/}-->
             <!-- {:url('user/user/login')}  {:url('user/user/reg')} -->
-            <span><a href="">登录</a>|<a href="">注册</a></span>
-<!--            {/notempty}-->
+            <span><a href="<?= $userLogin['loginURL'] ?>">登录</a>|<a href="<?= $userLogin['registerURL'] ?>">注册</a></span>
+            <?php } ?>
             <span><button @click="search_change" class="btn" :class="search ? 'btn-search':'btn-close'"></button></span>
             <div>
                 <div v-if="!search">
@@ -45,17 +47,21 @@
                         <button class="btn btn-search"></button>
                     </form>
                 </li>
+
+                <?php if('false'){ ?>
 <!--                {notempty name="user"}-->
                 <span>
                     <a href="">{$user['username']}</a> |
                     <a href="" class="exit">退出</a>
                 </span>
+                <?php }else{ ?>
 <!--                {else/}-->
                 <!-- {:url('user/user/login')} -->
-                <span><a href="">登录</a>|<a href="">注册</a></span>
+                <span><a href="">登录</a>| <a href="">注册</a></span>
+                <?php } ?>
 <!--                {/notempty}-->
 <!--                {nav id="vo"}-->
-                <li {eq name="vo['current']" value="1"}class="curr"{/eq}><a href="">{$vo['title']}</a></li>
+<!--                <li {eq name="vo['current']" value="1"}class="curr"{/eq}><a href="">{$vo['title']}</a></li>-->
 <!--                {/nav}-->
             </ul>
         </div>
