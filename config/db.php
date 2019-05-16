@@ -4,9 +4,9 @@ return [
     'class' => 'yii\db\Connection',
     'dsn' => 'mysql:host=localhost;dbname=novel',
     'username' => 'root',
-    'password' => '',
+    'password' => 'root',
     'charset' => 'utf8',
     'enableSchemaCache' => true,
-    'schemaCacheDuration' => 60,
+    'schemaCacheDuration' => 60 * 60 * 24,
     'schemaCache' => 'cache',
 ];
