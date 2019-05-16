@@ -55,20 +55,15 @@ $config = [
     'params' => $params,
 ];
 
-if (YII_ENV_DEV) {
-    // configuration adjustments for 'dev' environment
-    $config['bootstrap'][] = 'debug';
+if (YII_ENV_DEV) {                          // 调试模式下的组件
+    $config['bootstrap'][] = 'debug';       // 调试组件
     $config['modules']['debug'] = [
         'class' => 'yii\debug\Module',
-        // uncomment the following to add your IP if you are not connecting from localhost.
-        //'allowedIPs' => ['127.0.0.1', '::1'],
     ];
 
-    $config['bootstrap'][] = 'gii';
+    $config['bootstrap'][] = 'gii';         // 代码生成插件
     $config['modules']['gii'] = [
         'class' => 'yii\gii\Module',
-        // uncomment the following to add your IP if you are not connecting from localhost.
-        //'allowedIPs' => ['127.0.0.1', '::1'],
     ];
 }
 
