@@ -8,13 +8,14 @@ class NovelAsset extends AssetBundle
     public $basePath = '@webroot';
     public $baseUrl = '@web';
     public $css = [
-        'web/css/site.css',
+        'web/css/style.css',
     ];
     public $js = [
+        'web/js/vue.js',
+        'web/js/index.js',
     ];
     public $depends = [
         'yii\web\YiiAsset',
-        'yii\bootstrap\BootstrapAsset',
     ];
 }
 
