@@ -4,7 +4,8 @@ $params = require __DIR__ . '/params.php';
 $db = require __DIR__ . '/db.php';
 
 $config = [
-    'id' => 'basic',
+    'id' => 'enjoy read',
+    'language' => 'zh-cn',
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
     'aliases' => [
@@ -13,8 +14,7 @@ $config = [
     ],
     'components' => [
         'request' => [
-            // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
-            'cookieValidationKey' => 'mDblRL2Lba6swBqPKXt1rmsDYxcPDg2H',
+            'cookieValidationKey' => 'enjoy read',
         ],
         'cache' => [
             'class' => 'yii\caching\FileCache',
@@ -28,9 +28,6 @@ $config = [
         ],
         'mailer' => [
             'class' => 'yii\swiftmailer\Mailer',
-            // send all mails to a file by default. You have to set
-            // 'useFileTransport' to false and configure a transport
-            // for the mailer to send real emails.
             'useFileTransport' => true,
         ],
         'log' => [
@@ -43,14 +40,15 @@ $config = [
             ],
         ],
         'db' => $db,
-        /*
+        /* URL美化 */
         'urlManager' => [
             'enablePrettyUrl' => true,
-            'showScriptName' => false,
+            'showScriptName' => true,
+            'suffix' => '.html',
             'rules' => [
+                'GET / '                                => 'index/index', // 首页
             ],
         ],
-        */
     ],
     'params' => $params,
 ];
